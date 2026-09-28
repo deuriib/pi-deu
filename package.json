@@ -19,16 +19,6 @@
     ],
     "prompts": [
       "./src/prompts/*.md"
-    ],
-    "subagents": {
-      "agents": [
-        "./src/agents"
-      ]
-    }
-  },
-  "pi-subagents": {
-    "agents": [
-      "./src/agents"
     ]
   },
   "peerDependencies": {

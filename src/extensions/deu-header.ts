@@ -188,7 +188,6 @@ class DeuHeader implements Component {
 
 export default function (pi: ExtensionAPI): void {
   let header: DeuHeader | undefined;
-  let reassertTimer: ReturnType<typeof setTimeout> | undefined;
 
   const install = (ctx: ExtensionContext): void => {
     if (!isTuiContext(ctx)) return;
@@ -200,10 +199,6 @@ export default function (pi: ExtensionAPI): void {
   };
 
   const cleanup = (ctx: ExtensionContext): void => {
-    if (reassertTimer) {
-      clearTimeout(reassertTimer);
-      reassertTimer = undefined;
-    }
     header?.dispose();
     header = undefined;
     try {
@@ -218,12 +213,7 @@ export default function (pi: ExtensionAPI): void {
     // open-tui instala su header también en session_start; el re-assert
     // diferido garantiza que el nuestro quede último sin importar el orden
     // de carga entre el paquete npm y esta extensión local.
-    if (reassertTimer) clearTimeout(reassertTimer);
-    reassertTimer = setTimeout(() => {
-      reassertTimer = undefined;
-      install(ctx);
-    }, 10);
-    reassertTimer.unref?.();
+    install(ctx);
   });
 
   pi.on("session_shutdown", async (_event, ctx) => {

@@ -34,7 +34,7 @@ You are the sole dispatcher — no other role dispatches. Every routed task carr
 
 ## Fast-path (self-execute)
 
-Reads/status checks, trivial clarifications, small doc/format edits (<150 lines, no logic change, single file, reversible). Fast-path units still record a checkpoint + observation in the handoff record (checkpoint-only; they skip the full chain). State `self-executed minor: <reason>` in output.
+Reads/status checks, trivial clarifications, small doc/format edits (<150 lines, no logic change, single file, reversible). Fast-path units still record a checkpoint + observation in the handoff record (checkpoint-only; they skip the full chain).
 
 ## Boundaries
 

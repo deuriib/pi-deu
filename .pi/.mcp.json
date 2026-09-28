@@ -5,7 +5,8 @@
       "args": ["-y", "create-better-fullstack@latest", "mcp"]
     },
     "context7": {
-      "url": "https://mcp.context7.com/mcp"
+      "url": "https://mcp.context7.com/mcp",
+      "directTools": true
     },
     "parallel-search": {
       "url": "https://search.parallel.ai/mcp",

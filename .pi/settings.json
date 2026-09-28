@@ -9,6 +9,8 @@
     "npm:@schovest/pi-goal@0.2.0",
     "npm:pi-open-tui@0.3.9",
     "npm:pi-hermes-memory@0.9.9",
-    "npm:@juicesharp/rpiv-todo@2.11.0"
-  ]
+    "npm:@juicesharp/rpiv-todo@2.11.0",
+    "npm:pi-cache-optimizer"
+  ],
+  "hideThinkingBlock": true
 }

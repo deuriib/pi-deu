@@ -10,7 +10,8 @@
     "npm:pi-open-tui@0.3.9",
     "npm:pi-hermes-memory@0.9.9",
     "npm:@juicesharp/rpiv-todo@2.11.0",
-    "npm:pi-cache-optimizer@2.8.11"
+    "npm:pi-cache-optimizer@2.8.11",
+    "npm:pi-herdr-agents@2.0.4"
   ],
   "hideThinkingBlock": true,
   "quietStartup": true

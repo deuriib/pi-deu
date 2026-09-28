@@ -6,6 +6,11 @@
     },
     "context7": {
       "url": "https://mcp.context7.com/mcp"
+    },
+    "parallel-search": {
+      "url": "https://search.parallel.ai/mcp",
+      "protocolVersion": "auto",
+      "directTools": true
     }
   }
 }

@@ -4,3 +4,4 @@ node_modules/
 .pi/todo.json
 *.log
 .DS_Store
+.agents/

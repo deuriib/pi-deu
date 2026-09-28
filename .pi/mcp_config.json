@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "better-fullstack": {
+      "command": "npx",
+      "args": ["-y", "create-better-fullstack@latest", "mcp"]
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}

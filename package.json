@@ -42,6 +42,7 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "agents:sync": "node scripts/sync-agents.mjs",
+    "assemble-system": "node scripts/assemble-system.mjs",
     "verify:v0": "npm run typecheck && npm run agents:sync -- --check && node scripts/verify-v0.mjs"
   }
 }

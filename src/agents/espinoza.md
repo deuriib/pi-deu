@@ -53,5 +53,3 @@ Escalation: security concern → brief to montilla for `barrera`. Architecture i
 3. NEVER sideways or self-dispatch. Need other domain → brief to montilla. (INV-A-04)
 4. Every automation must have an ROI contract: before/after metric, expected saving/time, validation method + evidence. (INV-A-02)
 5. Lesson capture in the HANDOFF on PASS; before a refactor dispatch, recall past lessons from the handoff record.
-
-> Traceability: Classify `espinoza.md:25-33` + Gate + Hard Rules per SPEC-espinoza-routing-2026-09-19 §4.1–4.2; scope `docs/briefs/BRIEF-clevel-routing-scaleup.md:31,61,63-84`.

@@ -27,13 +27,21 @@ const settings = JSON.parse(
   readFileSync(join(root, ".pi", "settings.json"), "utf8"),
 );
 for (const p of [
-  "npm:pi-todo@1.2.0",
-  "npm:pi-memory@0.4.0",
   "npm:pi-subagents@0.73.1",
+  "npm:pi-opencode-direct@0.1.7",
+  "npm:pi-antigravity@0.8.1",
   "npm:pi-mcp-adapter@3.1.0",
   "npm:pi-web-access@0.33.0",
-  "npm:pi-interview@0.13.0",
+  "npm:@juicesharp/rpiv-ask-user-question@2.11.0",
   "npm:@gotgenes/pi-permission-system@35.0.1",
+  "npm:@upstash/context7-pi@0.1.2",
+  "npm:@schovest/pi-goal@0.2.0",
+  "npm:pi-open-tui@0.3.9",
+  "npm:pi-hermes-memory@0.9.9",
+  "npm:@juicesharp/rpiv-todo@2.11.0",
+  "npm:pi-cache-optimizer@2.8.11",
+  "npm:@ar-llm/pi-custom-compaction@0.5.0",
+  "npm:pi-rewind-hook@1.8.7",
 ]) {
   if (!(settings.packages ?? []).includes(p))
     fail(`.pi/settings.json packages debe incluir ${p}`);
@@ -42,11 +50,22 @@ for (const p of [
 for (const d of [
   "pi-todo",
   "pi-memory",
+  "pi-interview",
   "pi-subagents",
+  "pi-opencode-direct",
+  "pi-antigravity",
   "pi-mcp-adapter",
   "pi-web-access",
-  "pi-interview",
+  "@juicesharp/rpiv-ask-user-question",
   "@gotgenes/pi-permission-system",
+  "@upstash/context7-pi",
+  "@schovest/pi-goal",
+  "pi-open-tui",
+  "pi-hermes-memory",
+  "@juicesharp/rpiv-todo",
+  "pi-cache-optimizer",
+  "@ar-llm/pi-custom-compaction",
+  "pi-rewind-hook",
 ]) {
   if (pkg.dependencies?.[d])
     fail(
@@ -61,6 +80,7 @@ if (pkg.bundledDependencies?.length)
 else ok("sin bundledDependencies");
 for (const f of [
   "src/extensions/deu-core.ts",
+  "src/extensions/deu-header.ts",
   ".pi/SYSTEM.md",
   ".pi/system/persona.md",
   ".pi/system/core.md",
@@ -124,39 +144,35 @@ for (const [field, entry] of [
     fail(`package.json pi.${field} debe incluir ${entry}`);
   else ok(`pi.${field} -> ${entry}`);
 }
-// Agents: manifest dual (package) + espejo project (.pi/agents). Ver ADR-0002.
-for (const [path, entry] of [
-  ["pi.subagents.agents", pkg.pi?.subagents?.agents],
-  ["pi-subagents.agents", pkg["pi-subagents"]?.agents],
-]) {
-  if (!(entry ?? []).includes("./src/agents"))
-    fail(`package.json ${path} debe incluir ./src/agents`);
-  else ok(`${path} -> ./src/agents`);
-}
+// Agents: Pi auto-descubre project agents en .pi/agents/ (sin manifest dual).
+// Ver ADR-0002 actualizado: src/agents/ eliminado, fuente única .pi/agents/.
 {
+  if (pkg.pi?.subagents?.agents ?? pkg["pi-subagents"]?.agents)
+    fail("package.json no debe declarar manifest manual de agents: Pi auto-descubre .pi/agents/");
+  else ok("sin manifest manual (Pi auto-descubre .pi/agents/)");
   const { readdirSync } = await import("node:fs");
-  const srcAgents = readdirSync(join(root, "src", "agents")).filter((f) =>
+  const piAgents = readdirSync(join(root, ".pi", "agents")).filter((f) =>
     f.endsWith(".md"),
   );
-  if (srcAgents.length < 74)
+  if (piAgents.length < 74)
     fail(
-      `src/agents/ debe tener 74 .md (69 origen tras drop + 5 product), tiene ${srcAgents.length}`,
+      `.pi/agents/ debe tener 74 .md (69 origen tras drop + 5 product), tiene ${piAgents.length}`,
     );
-  else ok(`src/agents/ con ${srcAgents.length} top-level + core/`);
+  else ok(`.pi/agents/ con ${piAgents.length} top-level`);
   for (const dropped of ["scout.md", "explore.md", "general.md", "deu.md"]) {
-    if (existsSync(join(root, "src", "agents", dropped)))
-      fail(`src/agents/${dropped} dropeado: debe eliminarse`);
+    if (existsSync(join(root, ".pi", "agents", dropped)))
+      fail(`.pi/agents/${dropped} dropeado: debe eliminarse`);
   }
   ok("drop scout/explore/general/deu respetado (builtins + deu-es-CEO)");
   for (const must of ["vasquez.md", "jimenez.md", "product-reviewer.md"]) {
-    if (!existsSync(join(root, "src", "agents", must)))
-      fail(`falta src/agents/${must}`);
+    if (!existsSync(join(root, ".pi", "agents", must)))
+      fail(`falta .pi/agents/${must}`);
   }
   ok("agents clave presentes (vasquez, jimenez, product-reviewer)");
   // Sin vocabulario Gemini residual en frontmatter (solo cuerpo puede citarlo).
-  for (const f of srcAgents) {
+  for (const f of piAgents) {
     const head =
-      readFileSync(join(root, "src", "agents", f), "utf8").split("---")[1] ??
+      readFileSync(join(root, ".pi", "agents", f), "utf8").split("---")[1] ??
       "";
     for (const bad of [
       "list_directory",
@@ -167,7 +183,7 @@ for (const [path, entry] of [
       "subagent:",
     ]) {
       if (head.includes(bad)) {
-        fail(`src/agents/${f} frontmatter con resto Gemini (${bad})`);
+        fail(`.pi/agents/${f} frontmatter con resto Gemini (${bad})`);
         break;
       }
     }

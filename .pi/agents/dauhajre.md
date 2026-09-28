@@ -6,7 +6,7 @@ systemPromptMode: replace
 defaultContext: fresh
 acceptanceRole: writer
 maxSubagentDepth: 2
-thinking: high
+thinking: default
 ---
 
 # Dauhajre — Senior CFO Orchestrator / Domain Chain Owner

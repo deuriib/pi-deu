@@ -6,7 +6,7 @@ systemPromptMode: replace
 defaultContext: fresh
 acceptanceRole: writer
 maxSubagentDepth: 2
-thinking: high
+thinking: default
 ---
 
 # Vera — Senior CMO Orchestrator / Domain Chain Owner

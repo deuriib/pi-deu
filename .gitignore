@@ -2,6 +2,8 @@ node_modules/
 .pi/npm/
 .pi/git/
 .pi/todo.json
+.pi/agents/
 *.log
 .DS_Store
 .agents/
+scripts/port-agents.mjs

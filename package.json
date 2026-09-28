@@ -19,6 +19,16 @@
     ],
     "prompts": [
       "./src/prompts/*.md"
+    ],
+    "subagents": {
+      "agents": [
+        "./src/agents"
+      ]
+    }
+  },
+  "pi-subagents": {
+    "agents": [
+      "./src/agents"
     ]
   },
   "peerDependencies": {
@@ -31,6 +41,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "verify:v0": "npm run typecheck && node scripts/verify-v0.mjs"
+    "agents:sync": "node scripts/sync-agents.mjs",
+    "verify:v0": "npm run typecheck && npm run agents:sync -- --check && node scripts/verify-v0.mjs"
   }
 }

@@ -20,10 +20,10 @@ for (const p of ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0", "npm:pi-subagents@0
   if (!(settings.packages ?? []).includes(p)) fail(`.pi/settings.json packages debe incluir ${p}`);
   else ok(`packages -> ${p}`);
 }
-for (const d of ["pi-todo", "pi-memory"]) {
-  if (!pkg.dependencies?.[d]) fail(`dependencies (dev/local) debe incluir ${d}`);
-  else ok(`dependencies ${d}@${pkg.dependencies[d]}`);
+for (const d of ["pi-todo", "pi-memory", "pi-subagents", "pi-mcp-adapter", "pi-web-access", "pi-interview", "@gotgenes/pi-permission-system"]) {
+  if (pkg.dependencies?.[d]) fail(`dependencies no debe incluir ${d}: los packages los gestiona Pi en .pi/npm/`);
 }
+ok("sin Pi packages en dependencies (Pi los gestiona)");
 if (pkg.bundledDependencies?.length) fail("bundledDependencies debe estar vacío: Pi gestiona los packages como project packages de primera clase");
 else ok("sin bundledDependencies");
 for (const f of ["src/extensions/deu-core.ts", ".pi/SYSTEM.md", ".pi/system/persona.md", ".pi/system/core.md", ".pi/system/tools.md", ".pi/system/guardrails.md", ".pi/system/README.md", "src/skills/deu-check/SKILL.md", "src/prompts/deu-check.md", "scripts/assemble-system.mjs"]) {

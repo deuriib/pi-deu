@@ -4,18 +4,22 @@
   "description": "Custom Pi agent autocontenido (deu): system prompt + pi-todo + pi-memory, todo declarado en package.json bajo src/",
   "type": "module",
   "license": "MIT",
-  "keywords": ["pi-package"],
+  "keywords": [
+    "pi-package"
+  ],
   "engines": {
     "node": ">=22.19.0"
   },
   "pi": {
-    "extensions": ["./src/extensions/*.ts"],
-    "skills": ["./src/skills/*/"],
-    "prompts": ["./src/prompts/*.md"]
-  },
-  "dependencies": {
-    "pi-todo": "1.2.0",
-    "pi-memory": "0.4.0"
+    "extensions": [
+      "./src/extensions/*.ts"
+    ],
+    "skills": [
+      "./src/skills/*/"
+    ],
+    "prompts": [
+      "./src/prompts/*.md"
+    ]
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*",

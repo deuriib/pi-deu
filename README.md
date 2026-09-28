@@ -5,7 +5,7 @@ Custom Pi agent `deu`: system prompt + `pi-todo` + `pi-memory`, todo declarado e
 ## Estructura
 
 - `package.json` — bloque `pi` (`extensions/skills/prompts` → `src/` propio). `dependencies` conserva `pi-todo` + `pi-memory` solo para dev local.
-- `.pi/settings.json` — `packages: ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0"]` (commiteado; Pi auto-instala al arrancar tras `/trust`).
+- `.pi/settings.json` — project packages pineados (Pi auto-instala al arrancar tras `/trust`): `pi-todo@1.2.0`, `pi-memory@0.4.0`, `pi-subagents@0.73.1`, `pi-mcp-adapter@3.1.0`, `pi-web-access@0.33.0`, `pi-interview@0.13.0`, `@gotgenes/pi-permission-system@35.0.1`.
 - `.pi/system/{persona,core,tools,guardrails}.md` — fuente del system prompt. `node scripts/assemble-system.mjs` genera `.pi/SYSTEM.md`, que Pi usa como prompt del proyecto (skill `usage.md`). Nunca editar `SYSTEM.md` a mano.
 - `src/extensions/deu-core.ts` — guarda destructivo, comando `/deu`, discover de skills/prompts. No inyecta prompt: Pi es dueño vía `.pi/SYSTEM.md`.
 - `src/system/{persona,core,tools,guardrails}.md` — system prompt deu por partes; `SYSTEM.md` es vista de lectura.

@@ -16,7 +16,7 @@ for (const entry of (pkg.pi?.extensions ?? [])) {
 }
 ok("pi.extensions sin node_modules (packages viven en .pi/settings.json)");
 const settings = JSON.parse(readFileSync(join(root, ".pi", "settings.json"), "utf8"));
-for (const p of ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0"]) {
+for (const p of ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0", "npm:pi-subagents@0.73.1", "npm:pi-mcp-adapter@3.1.0", "npm:pi-web-access@0.33.0", "npm:pi-interview@0.13.0", "npm:@gotgenes/pi-permission-system@35.0.1"]) {
   if (!(settings.packages ?? []).includes(p)) fail(`.pi/settings.json packages debe incluir ${p}`);
   else ok(`packages -> ${p}`);
 }

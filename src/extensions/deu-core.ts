@@ -3,12 +3,12 @@ import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { getPackageMeta } from "./lib/pkg-meta.js";
 
-// Fuente única: package.json (antes PKG_NAME/PKG_VERSION hardcodeados).
-const { name: PKG_NAME, version: PKG_VERSION } = getPackageMeta(import.meta.url);
+// Fuente única: package.json
+const { name: PKG_NAME, version: PKG_VERSION } = getPackageMeta(
+  import.meta.url,
+);
 
 function packageRoot(fromUrl: string): string {
-  // dirname = .../deu/src/extensions → "..", ".." = .../deu (package root).
-  // OJO: un tercer ".." cae al PARENT del repo y rompe skillPaths/promptPaths.
   return resolve(dirname(fileURLToPath(fromUrl)), "..", "..");
 }
 
@@ -30,36 +30,43 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("session_start", async (_event, ctx) => {
     if (ctx.hasUI) {
-      ctx.ui.notify("deu v0 listo (system .pi/SYSTEM.md + todo + memory)", "info");
+      //
     }
   });
 
-  // Skills/prompts: fuente única = package.json:pi (manifest). Registrarlos
-  // también vía resources_discover duplica cada recurso y Pi reporta
-  // "[Skill conflicts]" / "[Prompt conflicts]" (misma ruta, skipped).
-
-  // System prompt: Pi es dueño — .pi/SYSTEM.md (skill: usage.md) reemplaza
-  // el default a nivel proyecto. Esta extensión no lo inyecta para no
-  // pelear con Pi ni romper caché. Fuente: .pi/system/*.md + assemble script.
-
   pi.on("tool_call", async (event, ctx) => {
     const name = event.toolName;
-    if ((name === "bash" && isDestructiveBash(event.input?.command)) || name === "user_bash") {
+    if (
+      (name === "bash" && isDestructiveBash(event.input?.command)) ||
+      name === "user_bash"
+    ) {
       const cmd = event.input?.command;
       if (typeof cmd === "string" && isDestructiveBash(cmd)) {
         if (ctx.hasUI) {
-          const ok = await ctx.ui.confirm("deu guard", `¿Permitir comando destructivo?\n${cmd}`);
-          if (!ok) return { block: true, reason: "Bloqueado por deu-core: comando destructivo no confirmado" };
+          const ok = await ctx.ui.confirm(
+            "deu guard",
+            `¿Permitir comando destructivo?\n${cmd}`,
+          );
+          if (!ok)
+            return {
+              block: true,
+              reason:
+                "Bloqueado por deu-core: comando destructivo no confirmado",
+            };
           return undefined;
         }
-        return { block: true, reason: "Bloqueado por deu-core: comando destructivo sin UI para confirmar" };
+        return {
+          block: true,
+          reason:
+            "Bloqueado por deu-core: comando destructivo sin UI para confirmar",
+        };
       }
     }
     return undefined;
   });
 
   pi.registerCommand("deu", {
-    description: "Muestra estado deu v0 (system prompt + integraciones)",
+    description: "Muestra estado deu (system prompt + integraciones)",
     handler: async (_args, ctx) => {
       const lines = [
         `${PKG_NAME} v${PKG_VERSION} autocontenido`,

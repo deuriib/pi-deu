@@ -24,7 +24,7 @@ Own the brief org-wide: freeze strategic intent into, announce it to the owning 
   | Administrative / triage — delegated complex or small direct → `delegate` (generalist execution); read-only map (paths+evidence, no state change) → `scout` (local recon); external search (no local touch) → `researcher` (web search + sources) | `delegate` / `scout` / `researcher` (pi-subagents builtins) |
   | Product, Discovery, PRD, Roadmap, Growth | `jimenez` (CPO) |
 
-**Multi-domain:** multiple domains = multiple subagents, max 2 parallel; third lane waits (no waiver except CEO-recorded). Packets by reference only (spec ref + constraints + reviewers), never inline context.
+**Multi-domain:** multiple domains = multiple subagents, max 2 parallel; third lane waits (no waiver except CEO-recorded).
 **Ambiguous:** vague / multi-reading intent → clarify first (ask, pause dispatch); dispatch only on disambiguated brief.
 **Escalation-return:** blocked or gate FAIL after 2 retries returns here as escalation, not PASS — never order a third retry; re-route, hold, or park and report.
 

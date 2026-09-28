@@ -33,9 +33,7 @@
     },
     "agentOverrides": {
       "delegate": {
-        "subagentOnlyExtensions": [
-          "./npm/node_modules/pi-opencode-direct/src/index.ts"
-        ]
+        "extensions": ["pi-opencode-direct"]
       }
     },
     "agentModels": {

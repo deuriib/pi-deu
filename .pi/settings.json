@@ -11,10 +11,17 @@
     "npm:pi-hermes-memory@0.9.9",
     "npm:@juicesharp/rpiv-todo@2.11.0",
     "npm:pi-cache-optimizer@2.8.11",
-    "npm:pi-agent-browser-native@0.8.2",
     "npm:@ar-llm/pi-custom-compaction@0.5.0",
-    "npm:pi-rewind-hook@1.8.7"
+    "npm:pi-rewind-hook@1.8.7",
+    "npm:gentle-engram@0.1.16"
   ],
   "hideThinkingBlock": true,
-  "quietStartup": true
+  "quietStartup": true,
+  "subagents": {
+    "modelScope": {
+      "enforce": true,
+      "strict": true,
+      "allow": ["inherit", "opencode-zen-free/*", "antigravity/gemini-3-flash"]
+    }
+  }
 }

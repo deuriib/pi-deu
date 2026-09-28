@@ -1,6 +1,8 @@
 {
   "packages": [
     "npm:pi-subagents@0.73.1",
+    "npm:pi-opencode-direct@0.1.7",
+    "npm:pi-antigravity@0.8.1",
     "npm:pi-mcp-adapter@3.1.0",
     "npm:pi-web-access@0.33.0",
     "npm:@juicesharp/rpiv-ask-user-question@2.11.0",
@@ -18,16 +20,27 @@
   "quietStartup": true,
   "tuiMode": "fullscreen",
   "subagents": {
-    "modelScope": {
-      "enforce": true,
-      "strict": true,
-      "allow": [
-        "inherit",
-        "opencode-zen-free/muse-spark-1.3-contributor-free",
+    "roles": {
+      "fast": ["opencode-zen-free/nemotron-3.5-lightning-free"],
+      "coder": [
         "opencode-zen-free/mimo-v2.6-flash-free",
-        "nemotron-3.5-lightning-free",
-        "antigravity/gemini-3-flash"
+        "opencode-zen-free/muse-spark-1.3-contributor-free"
+      ],
+      "smart": [
+        "opencode-zen-free/muse-spark-1.3-contributor-free",
+        "opencode-zen-free/nemotron-3-ultra-free"
       ]
+    },
+    "agentOverrides": {
+      "delegate": {
+        "subagentOnlyExtensions": [
+          "./npm/node_modules/pi-opencode-direct/src/index.ts"
+        ]
+      }
+    },
+    "agentModels": {
+      "reviewer": "@smart:high",
+      "explore": "@fast"
     }
   }
 }

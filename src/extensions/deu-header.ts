@@ -1,4 +1,3 @@
-import { isAbsolute, relative, resolve, sep } from "node:path";
 import {
   VERSION,
   type ExtensionAPI,
@@ -57,28 +56,6 @@ function headerColumnWidths(innerWidth: number): {
     return { leftWidth: innerWidth, rightWidth: 0, useTips: false };
   }
   return { leftWidth, rightWidth, useTips: true };
-}
-
-function formatCwd(cwd: string): string {
-  const home: string | undefined = process.env.HOME ?? process.env.USERPROFILE;
-  if (!home) return cwd;
-  const rel = relative(resolve(home), resolve(cwd));
-  const insideHome =
-    rel === "" || (rel !== ".." && !rel.startsWith(`..${sep}`) && !isAbsolute(rel));
-  if (!insideHome) return cwd;
-  return rel === "" ? "~" : `~${sep}${rel}`;
-}
-
-function formatModelLabel(
-  model: { provider?: string; id?: string } | null | undefined,
-): string {
-  if (!model?.id) return "no-model";
-  return model.provider ? `${model.provider}/${model.id}` : model.id;
-}
-
-function formatThinkingLabel(level: string | undefined): string {
-  if (!level || level === "off") return "thinking off";
-  return `${level} effort`;
 }
 
 function padRight(text: string, width: number, ellipsis = ""): string {
@@ -141,10 +118,8 @@ function isTuiContext(ctx: ExtensionContext): boolean {
 
 class DeuHeader implements Component {
   private readonly ctx: ExtensionContext;
-  private readonly pi: ExtensionAPI;
 
-  constructor(pi: ExtensionAPI, ctx: ExtensionContext) {
-    this.pi = pi;
+  constructor(_pi: ExtensionAPI, ctx: ExtensionContext) {
     this.ctx = ctx;
   }
 
@@ -152,33 +127,21 @@ class DeuHeader implements Component {
     const theme = this.ctx.ui.theme;
     const paint = (s: string): string => theme.fg("accent", s);
     const muted = (s: string): string => theme.fg("muted", s);
-    const dim = (s: string): string => theme.fg("dim", s);
     const bold = (s: string): string => theme.bold(s);
 
     if (width < 24) return [paint(`Deu v${VERSION}`)];
 
     const innerWidth = width - 2;
     const { leftWidth, rightWidth, useTips } = headerColumnWidths(innerWidth);
-    const model = formatModelLabel(this.ctx.model);
-    let effort = "thinking off";
-    try {
-      effort = formatThinkingLabel(this.pi.getThinkingLevel());
-    } catch {
-      effort = "thinking off";
-    }
-    const cwd = formatCwd(this.ctx.cwd);
 
     const leftLines = [
       ...DEU_LOGO.map((line) => center(paint(line), leftWidth)),
       center(bold(SLOGAN), leftWidth),
-      center(muted(`${model} · ${effort}`), leftWidth),
-      center(dim(cwd), leftWidth),
     ];
 
     const tipDivider = paint("─".repeat(Math.max(8, Math.min(rightWidth, 22))));
     const [cmd0 = "", cmd1 = "", cmd2 = "", cmd3 = ""] = FIXED_TIPS;
     const tipLines = [
-      "",
       paint(bold("Welcome")),
       muted("Ask Deu anything"),
       tipDivider,
@@ -187,7 +150,6 @@ class DeuHeader implements Component {
       muted(cmd1),
       muted(cmd2),
       muted(cmd3),
-      "",
     ];
 
     const lines = [borderLine("╭", `${paint("Deu")} v${VERSION}`, "╮", width, paint)];

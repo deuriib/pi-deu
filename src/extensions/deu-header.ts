@@ -52,7 +52,7 @@ function headerColumnWidths(innerWidth: number): {
     rightWidth = innerWidth - COLUMN_GAP - leftWidth;
   }
   if (leftWidth <= rightWidth) {
-    leftWidth = Math.ceil(((innerWidth - COLUMN_GAP) * 0.65));
+    leftWidth = Math.ceil((innerWidth - COLUMN_GAP) * 0.65);
     rightWidth = innerWidth - COLUMN_GAP - leftWidth;
   }
   if (rightWidth < MIN_TIPS_WIDTH || leftWidth < MIN_LEFT_WIDTH) {
@@ -82,11 +82,18 @@ function borderLine(
 ): string {
   if (width <= 1) return "";
   if (width < 8 || label.length === 0) {
-    return paint(truncateToWidth(left + "─".repeat(Math.max(0, width - 2)) + right, width, ""));
+    return paint(
+      truncateToWidth(
+        left + "─".repeat(Math.max(0, width - 2)) + right,
+        width,
+        "",
+      ),
+    );
   }
   const before = "─── ";
   const after = " ─────";
-  const fixedWidth = visibleWidth(before) + visibleWidth(label) + visibleWidth(after);
+  const fixedWidth =
+    visibleWidth(before) + visibleWidth(label) + visibleWidth(after);
   const fill = Math.max(0, width - 2 - fixedWidth);
   return `${paint(left)}${paint(before)}${label}${paint(after)}${paint("─".repeat(fill))}${paint(right)}`;
 }
@@ -155,10 +162,18 @@ class DeuHeader implements Component {
       muted(cmd3),
     ];
 
-    const lines = [borderLine("╭", `${paint("Deu")} v${DEU_VERSION}`, "╮", width, paint)];
+    const lines = [
+      borderLine("╭", `${paint("Deu")} v${DEU_VERSION}`, "╮", width, paint),
+    ];
     for (let i = 0; i < leftLines.length; i++) {
       const content = useTips
-        ? twoColumn(leftLines[i] ?? "", tipLines[i] ?? "", leftWidth, rightWidth, paint)
+        ? twoColumn(
+            leftLines[i] ?? "",
+            tipLines[i] ?? "",
+            leftWidth,
+            rightWidth,
+            paint,
+          )
         : padRight(leftLines[i] ?? "", leftWidth);
       lines.push(boxedLine(content, width, paint));
     }
@@ -207,7 +222,7 @@ export default function (pi: ExtensionAPI): void {
     reassertTimer = setTimeout(() => {
       reassertTimer = undefined;
       install(ctx);
-    }, 100);
+    }, 10);
     reassertTimer.unref?.();
   });
 

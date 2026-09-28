@@ -1,9 +1,10 @@
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getPackageMeta } from "./lib/pkg-meta.js";
 
-const PKG_NAME = "deu-pi-agent";
-const PKG_VERSION = "0.1.0";
+// Fuente única: package.json (antes PKG_NAME/PKG_VERSION hardcodeados).
+const { name: PKG_NAME, version: PKG_VERSION } = getPackageMeta(import.meta.url);
 
 function packageRoot(fromUrl: string): string {
   // dirname = .../deu/src/extensions → "..", ".." = .../deu (package root).

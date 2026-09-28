@@ -1,10 +1,13 @@
 import {
-  VERSION,
   type ExtensionAPI,
   type ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
 import type { Component, TUI } from "@earendil-works/pi-tui";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
+import { getPackageMeta } from "./lib/pkg-meta.js";
+
+// Versión local del paquete — fuente única: package.json (no el VERSION de Pi).
+const DEU_VERSION = getPackageMeta(import.meta.url).version;
 
 // Header DEU — override local del header de pi-open-tui@0.3.9.
 // Estrategia: reinstalar con ctx.ui.setHeader() en session_start (+ re-assert
@@ -129,7 +132,7 @@ class DeuHeader implements Component {
     const muted = (s: string): string => theme.fg("muted", s);
     const bold = (s: string): string => theme.bold(s);
 
-    if (width < 24) return [paint(`Deu v${VERSION}`)];
+    if (width < 24) return [paint(`Deu v${DEU_VERSION}`)];
 
     const innerWidth = width - 2;
     const { leftWidth, rightWidth, useTips } = headerColumnWidths(innerWidth);
@@ -152,7 +155,7 @@ class DeuHeader implements Component {
       muted(cmd3),
     ];
 
-    const lines = [borderLine("╭", `${paint("Deu")} v${VERSION}`, "╮", width, paint)];
+    const lines = [borderLine("╭", `${paint("Deu")} v${DEU_VERSION}`, "╮", width, paint)];
     for (let i = 0; i < leftLines.length; i++) {
       const content = useTips
         ? twoColumn(leftLines[i] ?? "", tipLines[i] ?? "", leftWidth, rightWidth, paint)

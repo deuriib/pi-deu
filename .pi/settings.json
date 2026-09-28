@@ -1,0 +1,10 @@
+{
+  "packages": ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0"],
+  "hideThinkingBlock": true,
+  "terminal": {
+    "showTerminalProgress": false
+  },
+  "collapseChangelog": true,
+  "quietStartup": true,
+  "tuiMode": "fullscreen"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "deu-pi-agent",
+  "version": "0.1.0",
+  "description": "Custom Pi agent autocontenido (deu): system prompt + pi-todo + pi-memory, todo declarado en package.json bajo src/",
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["pi-package"],
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "pi": {
+    "extensions": ["./src/extensions/*.ts"],
+    "skills": ["./src/skills/*/"],
+    "prompts": ["./src/prompts/*.md"]
+  },
+  "dependencies": {
+    "pi-todo": "1.2.0",
+    "pi-memory": "0.4.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-ai": "*",
+    "typebox": "*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "verify:v0": "npm run typecheck && node scripts/verify-v0.mjs"
+  }
+}

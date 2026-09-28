@@ -1,0 +1,14 @@
+# DECISION — deu-pi-agent v0 autocontenido
+
+- Status: accepted
+- Date: 2026-09-28
+- Context: usuario pidió custom pi-agent v0 con better-fullstack como scaffold, system prompt deu y extensiones pi-todo + pi-memory, todo autocontenido en `src/` configurado vía `package.json`, sin `.pi/settings.json` ni `SYSTEM.md` suelto.
+- Options:
+  1. Config vía `.pi/settings.json` + `.pi/SYSTEM.md` (convencional Pi) — descartado: rompe autocontenido, exige setup manual por máquina.
+  2. Config vía `package.json:pi` + `src/` + `deu-core.ts` que inyecta systemPrompt en `before_agent_start` y expone skills/prompts vía `resources_discover` (elegido).
+  3. Fork de pi-todo/pi-memory dentro del repo — descartado: duplica mantenimiento; se bundlean vía `dependencies + bundledDependencies`.
+- Decision: opción 2. Scaffold mínimo TS (no Next/Drizzle/Auth en v0). Memoria default `pi-memory@0.4.0` markdown sin worker (vs `pi-agent-memory` que exige worker `:37777` y rompe autocontenido). System prompt en `replace` (no append) para garantizar deu puro; `customPrompt` del usuario se preserva como sufijo.
+- Consequences: un `pi install <source>` carga todo; pins exactos `pi-todo 1.2.0 + pi-memory 0.4.0`; riesgo de rotura si terceros cambian layout — mitigado con pins + smoke `pi config`; guardrails completos pueden presionar caché — mitigado midiendo `/session` tokens en smoke.
+- Nota 2026-09-28 (bundled refs, SUPERSEDEADA abajo): ~~el manifest `pi.extensions`...~~ ver corrección.
+- Corrección 2026-09-28 (packages[] canónico): los integrations NO van en `pi.extensions` (ahí solo paths de `src/` propio). Van en `.pi/settings.json` del proyecto como `packages: ["npm:pi-todo@1.2.0", "npm:pi-memory@0.4.0"]` — archivo commiteado, Pi auto-instala los project packages faltantes al arrancar tras trust (`/trust` una vez). Sin `bundledDependencies`. `dependencies` en `package.json` se conserva solo para dev local. Motivo: el manifest `pi` ignora sintaxis `npm:` (solo paths filesystem); el array `packages` de settings es el único mecanismo de primera clase (instalación, pins, filtros, updates). `verify-v0` exige este contrato.
+- Corrección 2026-09-28 (system prompt skill-native): `src/system/` → `.pi/system/` (partes) + `.pi/SYSTEM.md` generado por `scripts/assemble-system.mjs`. Pi reemplaza su default con `SYSTEM.md` a nivel proyecto (skill `usage.md`); `deu-core.ts` pierde `before_agent_start`/lecturas de disco (menos código, caché intacta). `verify-v0` exige `SYSTEM.md` regenerado. Trade-off explícito: el prompt aplica solo dentro del proyecto (cwd bajo el repo); la inyección por extensión seguía al usuario a cualquier cwd. Si se quiere deu global, copiar `SYSTEM.md` a `~/.pi/agent/SYSTEM.md` — decisión del usuario, no de v0.

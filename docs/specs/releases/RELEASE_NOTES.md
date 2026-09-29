@@ -1,42 +1,50 @@
-# Release Notes: bootstrap-missing-files (unshipped — prepared)
+# Release Notes: v0.1.0 — pi-deu
 
 **Date:** 2026-09-29
-**Release Manager:** deu (single-thread; second-reader separation deferred — §Known Issues)
-**Specs Included:** BOOTSTRAP-MISSING-FILES
-**Domains-Touched:** Legal, Engineering
-**Ship Type:** N/A — internal docs-only bootstrap (no deploy/filing/launch/close/rollout/policy-enable; no user impact, no runtime change)
+**Release Manager:** orchestrator (single-thread; second-reader separation deferred — §Known Issues)
+**Specs Included:** SPEC-pi-deu-rename-release
+**Domains-Touched:** [engineering, automation/ops, security, product]
+**Ship Type:** deploy
 
 ## Highlights
 
-- The two files the chain was blocked on now exist: `LICENSE` (MIT) and `docs/specs/design/DESIGN.md` (canonical singleton v1 with the 4-line-note grammar). README links resolve; guardrail references land.
+- Primer release público como `pi-deu`: `npm install -g pi-deu`, bin `pi-deu`, configDir `.pi-deu`. Logo pixelado intacto (arte DEU).
+- Pipeline reproducible: cada tag `v*` publica a npm con provenance vía OIDC Trusted Publishing.
+- Cadena Frame→Ship completa en verde: GOAL → SPEC (7 REQ) → PROPOSAL → security/architecture APPROVED → build → review OPEN 9/9 → verify → release.
 
 ## Changes
 
 ### Features
 
-- None — docs-only lane.
+- Rename total `deu` → `pi-deu` (SPEC-pi-deu-rename-release, engineering): package, bin, `piConfig`, launcher env `PI_DEU_CODING_AGENT_DIR` (fallback legacy), `lib` fallback, `extensions/pi-deu-*` (+ `PiDeuTuiConfig`, `PiDeuHeader`), `skills/pi-deu-check/`, `prompts/pi-deu-check.md`, identidad `SYSTEM.md`, docs/badges (ADR-0005).
+- `.github/workflows/release.yml` (automation/ops): trigger `push.tags v*` + `workflow_dispatch`, node 22, `npm ci` → `typecheck` → `npm publish --provenance --access public`.
+- `LICENSE` (MIT) + `docs/specs/design/DESIGN.md` singleton v1 (arrastrados de bootstrap, nunca versionados hasta hoy).
 
 ### Fixes
 
-- Missing `LICENSE` created (Legal, BOOTSTRAP-MISSING-FILES): standard MIT, holder/year sourced from git.
-- Missing `docs/specs/design/DESIGN.md` created (Engineering, BOOTSTRAP-MISSING-FILES): singleton contract (components, data flow, invariants INV-001..006, NFRs) + authoritative 4-line-note grammar.
+- Cero restos `deu` en superficies propias (auditoría E-003; solo histórico allowlistado); `pi-*` externos intactos.
 
 ### Domain Ships
 
-- Legal: LICENSE artifact ready — owner legal sign-off still required before merge/publish (carried gate).
-- Engineering: DESIGN.md singleton live — future contract changes need a decision note in `docs/specs/decisions/`.
+- Automation: workflow release + runbook/rollback en PROPOSAL y §Rollback/Undo.
+- Security: threat checklist PASS, OIDC mínimo-privilegio, cero secretos en repo.
+- Product: DESIGN.md singleton `pi-deu` + CHANGELOG migración.
 
 ### Breaking Changes
 
-- None.
+- Bin `deu` → `pi-deu`; configDir `.deu` → `.pi-deu`; env primario `PI_DEU_CODING_AGENT_DIR`. Migración: mover `~/.deu/agent` → `~/.pi-deu/agent` y `<proyecto>/.deu` → `<proyecto>/.pi-deu`; re-trust del proyecto + reload. Lectura legacy con fallback (no escritura).
 
 ## Known Issues
 
-- Ship NOT closed: no tag, no push. Blockers with owners: (1) legal sign-off outstanding — owner legal; (2) no version bump in approved scope, so no tag name planned — owner engineering/vasquez; (3) push to `origin` needs explicit consent (irreversible) — owner user. Exact next commands live in ARCHIVE-RECORD Notes.
-- Second-reader separation (§2b steps 8–10) not exercised — no subagent tool in this runtime; single-thread throughout, recorded per step.
-- `scripts/bump-version.mjs` does not exist in this repo — version-sync step N/A; `package.json` stays `0.1.0`, zero drift introduced by this lane (typecheck green).
-- Root `AGENTS.md` (untracked, prior `/init-deep` lane) still claims a "LICENSE gap" — stale since this lane; left untouched (that lane owns it), flag for its owner.
+- El primer tag puede fallar en publish con 403 hasta que el owner configure npm Trusted Publisher (`pi-deu` → GitHub `deuriib/pi-deu`, workflow `release.yml`) y verifique `npm view pi-deu` libre. Re-lanzar el job fallido tras configurar. Owner: user.
+- Repo remoto aún `deuriib/deu`: renombrar a `deuriib/pi-deu` tras merge para que los links package.json resuelvan. Owner: user.
+- Second-reader separation (§2b pasos 8–10) no ejercida — sin herramienta de subagentes en este runtime; single-thread registrado.
+- `scripts/bump-version.mjs` no existe en este repo — sync N/A; versión única en `package.json` (`0.1.0`) + header CHANGELOG `## [v0.1.0]`, cero drift introducido (typecheck verde).
 
 ## Rollback / Undo
 
-- Lane revert: `git revert` the 6 lane commits in reverse (`c6ed6d7` … `0c84ff7`), or `git rm LICENSE docs/specs/design/DESIGN.md` + lane docs. Owner deu, ETA minutes. Nothing runtime to retract/void/disable — docs-only, nothing deployed.
+- Código: `git revert` del release commit hacia atrás (owner engineering, ETA minutos); contenido wrong ya tageado → revert-forward + patch bump, tag viejo inmutable.
+- Workflow: renombrar `.github/workflows/release.yml` a `.disabled` (owner automation, minutos).
+- Tag no pusheado por error: `git tag -d v0.1.0` (solo local); tag publicado a retirar: `git push --delete origin v0.1.0` solo con aprobación explícita del owner.
+- npm: `npm unpublish pi-deu@0.1.0` dentro de 72h, sino `npm deprecate`. Owner engineering + automation.
+- Usuario: volver a `~/.deu/agent` copiando desde `~/.pi-deu/agent`.

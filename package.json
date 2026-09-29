@@ -13,7 +13,6 @@
   "files": [
     "extensions",
     "lib",
-    "agents",
     "skills",
     "prompts",
     "index.ts",

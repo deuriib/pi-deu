@@ -1,15 +1,15 @@
 # deu — agente autocontenido
 
-Agente `deu`: system prompt autocontenido vía extensión (`before_agent_start`, replace). Fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package.
+Agente `deu`: system prompt autocontenido que el runtime descubre desde el configDir. Fuente: `SYSTEM.md` + `APPEND_SYSTEM.md`.
 
 ## Estructura
 
 - `package.json` — bloque `pi` (`extensions/skills/prompts` → `./extensions`, `./skills`, `./prompts`, más `node_modules/` bundleados). Sin claves `pi.system_prompt`: el runtime no las lee. Los paths propios viven en el bloque `piConfig` (`name: deu`, `configDir: .deu`).
-- `SYSTEM.md` + `APPEND_SYSTEM.md` — fuente del system prompt (vive con el package, viaja con `npm:deu`).
-- `lib/system-prompts.ts` — loader best-effort (`loadDeuPrompts`, `composeDeuSystemPrompt`): lee ambos `.md` en utf8, `trimEnd + \n`, missing-file → `""` sin romper carga.
-- `extensions/deu-core.ts` — inyecta `systemPrompt` en `before_agent_start` (replace, preserva `customPrompt` + `appendSystemPrompt` del usuario como sufijo), comando `/deu` (chars + fuentes), guard destructivo en `tool_call`, `/deu-config`.
-- No se usa `.deu/SYSTEM.md` ni `~/.deu/agent/SYSTEM.md`: la inyección forced-prompt pisa el default y evita doble carga.
-- `docs/specs/decisions/0002-deu-system-prompt-autocontenido.md` — por qué autocontenido vía extensión, orden de composición, replace vs append.
+- `skills/` — el chain frame-ship de nueve pasos (`start-here`, `agree-the-goal`, …, `release`) más el diagnóstico `deu-check`.
+- `SYSTEM.md` + `APPEND_SYSTEM.md` — fuente del system prompt. Viajan con `npm:deu` como semilla; **los carga el runtime desde el configDir**, no desde la raíz del package.
+- El configDir manda: `<proyecto>/.deu/SYSTEM.md` si el proyecto está trusted, si no `~/.deu/agent/SYSTEM.md` (igual para `APPEND_SYSTEM.md`). No hay loader propio — copiar un `.md` nuevo exige recargar.
+- `extensions/deu-core.ts` — guard destructivo en `tool_call`: bloquea bash destructivo antes de ejecutarlo. Ya no inyecta prompt ni registra comandos.
+- `docs/specs/decisions/0003-system-prompt-desde-configdir.md` — por qué el prompt vive en el configDir y no en la extensión (supera al 0002).
 
 ## Uso
 
@@ -19,4 +19,4 @@ npm install            # dev local
 deu config             # deu-core + todo + memory deben aparecer enabled
 ```
 
-En sesión: `/deu` estado, `/skill:deu-check` o `/deu-check` diagnóstico, `todo({action:"list"})`, `memory_status`.
+En sesión: `/deu-check` (o `/skill:deu-check`) diagnóstico, `todo({action:"list"})`, `memory_status`.

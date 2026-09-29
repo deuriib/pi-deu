@@ -1,7 +1,7 @@
 # 0002 — System prompt deu autocontenido vía extensión
 
 - Fecha: 2026-09-29
-- Estado: aceptado
+- Estado: superseded por 0003
 - Contexto: `pi.system_prompt` / `pi.append_system_prompt` en `package.json` no son claves válidas del manifiesto Pi (solo `extensions/skills/prompts/themes`). Pi las ignoraba en silencio y `SYSTEM.md` / `APPEND_SYSTEM.md` en raíz nunca cargaban. `deu-core.ts` tenía el handler `before_agent_start` como stub (`return {}`).
 - Opciones: (A) archivos en `.deu/SYSTEM.md` (mecanismo nativo por ruta fija). (B) inyección autocontenida desde el package vía `before_agent_start`.
 - Decisión: opción B. Fuente única `SYSTEM.md` + `APPEND_SYSTEM.md` en raíz del package. Loader `lib/system-prompts.ts` (utf8, best-effort, missing → `""`). `deu-core.ts` retorna `{ systemPrompt }` en modo replace. Pi lo proyecta al head del request y conserva sections/tools del transcript.

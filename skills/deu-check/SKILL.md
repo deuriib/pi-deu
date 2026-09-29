@@ -9,5 +9,5 @@ description: Verifica que el agente deu esté activo (system prompt + todo + mem
 
 ## Pasos
 
-1. Pide al modelo que repita el credo deu en una línea para confirmar el system prompt inyectado por `deu-core.ts` (fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package, carga en runtime).
+1. Pide al modelo que repita el credo deu en una línea para confirmar el system prompt que el runtime cargó desde el configDir — `<proyecto>/.deu/` si el proyecto está trusted, si no `~/.deu/agent/` (fuente: `SYSTEM.md` + `APPEND_SYSTEM.md`). Si el credo no coincide con el del repo, el configDir está desfasado: copiar y recargar.
 2. Reporta en 5 líneas: system, todo, memory, modo, siguiente acción. Sin azúcar: si algo falta, se dice con severidad y path out.

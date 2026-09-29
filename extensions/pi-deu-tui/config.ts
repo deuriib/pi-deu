@@ -46,7 +46,7 @@ export interface FullscreenConfig {
   wheelScrollLines: number;
 }
 
-export interface DeuTuiConfig {
+export interface PiDeuTuiConfig {
   enabled: boolean;
   inlineFooter: boolean;
   settingsLanguage: SettingsLanguage;
@@ -60,7 +60,7 @@ export interface DeuTuiConfig {
   thinkingPeek: ThinkingPeekConfig;
 }
 
-export const DEFAULT_CONFIG: DeuTuiConfig = {
+export const DEFAULT_CONFIG: PiDeuTuiConfig = {
   enabled: true,
   inlineFooter: false,
   settingsLanguage: "en",
@@ -101,7 +101,7 @@ export const DEFAULT_CONFIG: DeuTuiConfig = {
 
 export function getConfigPath(): string {
   const agentDir = getAgentDir();
-  return join(agentDir, "deu-tui.json");
+  return join(agentDir, "pi-deu-tui.json");
 }
 
 function normalizeThinkingPeekLines(value: unknown): ThinkingPeekLines {
@@ -156,7 +156,7 @@ export function ensureConfigExists(): void {
 
 export function loadConfig(
   notify?: (msg: string, level: "warning" | "info") => void,
-): DeuTuiConfig {
+): PiDeuTuiConfig {
   const path = getConfigPath();
   if (!existsSync(path)) {
     ensureConfigExists();
@@ -198,14 +198,14 @@ export function loadConfig(
     return config;
   } catch (err) {
     notify?.(
-      `deu-tui config parse error: ${err instanceof Error ? err.message : String(err)}`,
+      `pi-deu-tui config parse error: ${err instanceof Error ? err.message : String(err)}`,
       "warning",
     );
     return structuredClone(DEFAULT_CONFIG);
   }
 }
 
-export function saveConfig(config: DeuTuiConfig): void {
+export function saveConfig(config: PiDeuTuiConfig): void {
   const path = getConfigPath();
   try {
     const agentDir = getAgentDir();

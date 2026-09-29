@@ -33,7 +33,7 @@ export default function (pi: ExtensionAPI) {
     } catch (err) {
       if (ctx.hasUI) {
         ctx.ui.notify(
-          `deu-mcp: no se pudo registrar MCP (${err instanceof Error ? err.message : String(err)})`,
+          `pi-deu-mcp: no se pudo registrar MCP (${err instanceof Error ? err.message : String(err)})`,
           "warning",
         );
       }

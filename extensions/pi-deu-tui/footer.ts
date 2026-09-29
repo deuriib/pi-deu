@@ -9,7 +9,7 @@ import {
   visibleWidth,
   wrapTextWithAnsi,
 } from "@earendil-works/pi-tui";
-import type { DeuTuiConfig } from "./config.ts";
+import type { PiDeuTuiConfig } from "./config.ts";
 import type { IconGlyphs } from "./icons.ts";
 import { resolveGlyphs, resolveIconMode, runtimeSymbol } from "./icons.ts";
 import type { GitStatus } from "./git.ts";
@@ -78,7 +78,7 @@ function renderGitSegment(
   theme: Theme,
   git: GitStatus,
   glyphs: IconGlyphs,
-  segments: DeuTuiConfig["footerSegments"],
+  segments: PiDeuTuiConfig["footerSegments"],
   maxBranchLen = 20,
 ): string {
   const parts: string[] = [];
@@ -135,7 +135,7 @@ function renderGitSegment(
 function renderRuntimeSegment(
   theme: Theme,
   runtime: RuntimeInfo | null,
-  iconMode: DeuTuiConfig["icons"]["mode"],
+  iconMode: PiDeuTuiConfig["icons"]["mode"],
 ): string {
   if (!runtime) return "";
   const symbol = theme.fg("success", runtimeSymbol(runtime.name, iconMode));
@@ -163,7 +163,7 @@ function renderContextBar(
   ctx: ExtensionContext,
   width: number,
   glyphs: IconGlyphs,
-  iconMode: DeuTuiConfig["icons"]["mode"],
+  iconMode: PiDeuTuiConfig["icons"]["mode"],
 ): string {
   const contextUsage = ctx.getContextUsage();
   const contextWindow =
@@ -197,7 +197,7 @@ function renderStatsBlock(
   theme: Theme,
   totals: UsageTotals,
   glyphs: IconGlyphs,
-  segments: DeuTuiConfig["footerSegments"],
+  segments: PiDeuTuiConfig["footerSegments"],
 ): string {
   const stats: string[] = [];
   if (segments.tokens) {
@@ -320,7 +320,7 @@ function fitInlineSegments(
 function renderFooterContent(
   ctx: ExtensionContext,
   getState: () => FooterState,
-  getConfig: () => DeuTuiConfig,
+  getConfig: () => PiDeuTuiConfig,
   getModelMeta: () => ModelMeta,
   theme: Theme,
   footerData: FooterDataLike,
@@ -507,7 +507,7 @@ function renderFooterContent(
 export function installFooter(
   ctx: ExtensionContext,
   getState: () => FooterState,
-  getConfig: () => DeuTuiConfig,
+  getConfig: () => PiDeuTuiConfig,
   getModelMeta: () => ModelMeta,
   hooks: FooterHooks,
 ): FooterHandle {

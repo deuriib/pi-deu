@@ -15,12 +15,12 @@ import {
 } from "./utils.ts";
 
 // Versión local del paquete — fuente única: package.json (no la versión del runtime base).
-const DEU_VERSION = getPackageMeta(import.meta.url).version;
+const PI_DEU_VERSION = getPackageMeta(import.meta.url).version;
 
 const SLOGAN = "Haces las cosas como para Dios";
 
-// Logo DEU pixelado estilo VASQUEZ (7 filas x 26 cols, █ = ancho 1).
-const DEU_LOGO: readonly string[] = [
+// Logo DEU pixelado estilo VASQUEZ (se mantiene: el arte deletrea DEU) (7 filas x 26 cols, █ = ancho 1).
+const PI_DEU_LOGO: readonly string[] = [
   "██████   ███████   ██   ██",
   "██  ██   ██        ██   ██",
   "██  ██   ██        ██   ██",
@@ -30,10 +30,10 @@ const DEU_LOGO: readonly string[] = [
   "██████   ███████   ███████",
 ];
 
-const LOGO_ROWS = DEU_LOGO.length;
-const LOGO_COLS = [...DEU_LOGO[0]!].length;
+const LOGO_ROWS = PI_DEU_LOGO.length;
+const LOGO_COLS = [...PI_DEU_LOGO[0]!].length;
 
-// Maquinaria de frames porteada de deu-tui (timing idéntico, geometría DEU).
+// Maquinaria de frames porteada de pi-deu-tui (timing idéntico, geometría DEU (arte intacto)).
 const LOGO_CELL = "███";
 
 type LogoColor =
@@ -80,7 +80,7 @@ const INTRO_FRAME_MS = 110;
 
 function isLogoCell(y: number, x: number): boolean {
   if (y < 0 || y >= LOGO_ROWS) return false;
-  const row = DEU_LOGO[y]!;
+  const row = PI_DEU_LOGO[y]!;
   if (x < 0 || x >= LOGO_COLS) return false;
   return [...row][x] === "█";
 }
@@ -189,7 +189,7 @@ function twoColumn(
   return `${padRight(left, leftWidth)} ${paint("│")} ${padRight(right, rightWidth, "…")}`;
 }
 
-export class DeuHeader implements Component {
+export class PiDeuHeader implements Component {
   private readonly pi: ExtensionAPI;
   private readonly ctx: ExtensionContext;
   private frame = LOGO_FRAMES.length - 1;
@@ -200,7 +200,7 @@ export class DeuHeader implements Component {
     this.ctx = ctx;
     const pool = collectPiCommandNames(pi.getCommands());
     this.tipCommands = pickSlashCommandTips(pool, {
-      fixed: ["deu"],
+      fixed: ["pi-deu"],
       count: 3,
     });
   }
@@ -215,7 +215,7 @@ export class DeuHeader implements Component {
     const muted = (s: string): string => theme.fg("muted", s);
     const bold = (s: string): string => theme.bold(s);
 
-    if (width < 24) return [paint(`Deu v${DEU_VERSION}`)];
+    if (width < 24) return [paint(`Pi-Deu v${PI_DEU_VERSION}`)];
 
     const innerWidth = width - 2;
     const { leftWidth, rightWidth, useTips } = headerColumnWidths(innerWidth);
@@ -230,7 +230,7 @@ export class DeuHeader implements Component {
     const tipLines = [
       "",
       paint(bold("Welcome")),
-      muted("Ask Deu anything"),
+      muted("Ask Pi-Deu anything"),
       tipDivider,
       paint(bold("Commands")),
       muted(cmd0),
@@ -241,7 +241,7 @@ export class DeuHeader implements Component {
     ];
 
     const lines = [
-      borderLine("╭", `${paint("deu")} v${DEU_VERSION}`, "╮", width, paint),
+      borderLine("╭", `${paint("pi-deu")} v${PI_DEU_VERSION}`, "╮", width, paint),
     ];
     for (let i = 0; i < leftLines.length; i++) {
       const content = useTips
@@ -265,7 +265,7 @@ export class DeuHeader implements Component {
 }
 
 /**
- * Instala el header DEU con intro animada de una pasada por los frames
+ * Instala el header PI-DEU con intro animada de una pasada por los frames
  * y lo deja fijo en el frame final. Limpieza idempotente.
  */
 export function installHeader(
@@ -273,13 +273,13 @@ export function installHeader(
   ctx: ExtensionContext,
   opts?: { animate?: boolean },
 ): () => void {
-  let header: DeuHeader | undefined;
+  let header: PiDeuHeader | undefined;
   let timer: ReturnType<typeof setInterval> | undefined;
   let settled = false;
 
-  const render = (tui: TUI): DeuHeader => {
+  const render = (tui: TUI): PiDeuHeader => {
     header?.dispose();
-    header = new DeuHeader(pi, ctx, tui);
+    header = new PiDeuHeader(pi, ctx, tui);
     return header;
   };
 

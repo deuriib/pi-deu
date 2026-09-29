@@ -17,7 +17,7 @@ import {
 import type {
   CursorStyle,
   IconMode,
-  DeuTuiConfig,
+  PiDeuTuiConfig,
   SettingsLanguage,
   ThinkingPeekLines,
 } from "./config.js";
@@ -147,9 +147,9 @@ function formatThinkingPeekLines(
 }
 
 function toggleSetting(
-  config: DeuTuiConfig,
-  key: keyof DeuTuiConfig["footerSegments"],
-): DeuTuiConfig {
+  config: PiDeuTuiConfig,
+  key: keyof PiDeuTuiConfig["footerSegments"],
+): PiDeuTuiConfig {
   return {
     ...config,
     footerSegments: {
@@ -159,25 +159,25 @@ function toggleSetting(
   };
 }
 
-function cycleIconMode(config: DeuTuiConfig): DeuTuiConfig {
+function cycleIconMode(config: PiDeuTuiConfig): PiDeuTuiConfig {
   const order: IconMode[] = ["auto", "nerd", "ascii"];
   const currentIdx = order.indexOf(config.icons.mode);
   const next = order[(currentIdx + 1) % order.length]!;
   return { ...config, icons: { mode: next } };
 }
 
-function toggleEnabled(config: DeuTuiConfig): DeuTuiConfig {
+function toggleEnabled(config: PiDeuTuiConfig): PiDeuTuiConfig {
   return { ...config, enabled: !config.enabled };
 }
 
-function toggleLanguage(config: DeuTuiConfig): DeuTuiConfig {
+function toggleLanguage(config: PiDeuTuiConfig): PiDeuTuiConfig {
   return {
     ...config,
     settingsLanguage: config.settingsLanguage === "en" ? "zh" : "en",
   };
 }
 
-function cycleCursorStyle(config: DeuTuiConfig): DeuTuiConfig {
+function cycleCursorStyle(config: PiDeuTuiConfig): PiDeuTuiConfig {
   const order: CursorStyle[] = ["block", "bar", "underline"];
   const currentIdx = order.indexOf(config.cursorStyle);
   const next = order[(currentIdx + 1) % order.length]!;
@@ -185,9 +185,9 @@ function cycleCursorStyle(config: DeuTuiConfig): DeuTuiConfig {
 }
 
 function setWheelScrollLines(
-  config: DeuTuiConfig,
+  config: PiDeuTuiConfig,
   raw: string,
-): DeuTuiConfig | undefined {
+): PiDeuTuiConfig | undefined {
   if (!/^\d+$/.test(raw)) return undefined;
   const parsed = Number(raw);
   const bounded = Number.isFinite(parsed) ? parsed : Number.MAX_SAFE_INTEGER;
@@ -204,16 +204,16 @@ function setWheelScrollLines(
 }
 
 function toggleTelemetry(
-  config: DeuTuiConfig,
-  key: keyof DeuTuiConfig["telemetry"],
-): DeuTuiConfig {
+  config: PiDeuTuiConfig,
+  key: keyof PiDeuTuiConfig["telemetry"],
+): PiDeuTuiConfig {
   return {
     ...config,
     telemetry: { ...config.telemetry, [key]: !config.telemetry[key] },
   };
 }
 
-function cycleThinkingPeek(config: DeuTuiConfig): DeuTuiConfig {
+function cycleThinkingPeek(config: PiDeuTuiConfig): PiDeuTuiConfig {
   const next = ([1, 2, 0] as const)[config.thinkingPeek.lines] ?? 0;
   return {
     ...config,
@@ -222,7 +222,7 @@ function cycleThinkingPeek(config: DeuTuiConfig): DeuTuiConfig {
 }
 
 function buildFeaturesItems(
-  config: DeuTuiConfig,
+  config: PiDeuTuiConfig,
   copy: SettingsCopy,
 ): SettingItem[] {
   const flag = (value: boolean) => (value ? copy.values.on : copy.values.off);
@@ -256,7 +256,7 @@ function buildFeaturesItems(
 }
 
 function buildIconsItems(
-  config: DeuTuiConfig,
+  config: PiDeuTuiConfig,
   copy: SettingsCopy,
 ): SettingItem[] {
   return [
@@ -274,7 +274,7 @@ function buildIconsItems(
 }
 
 function buildSegmentsItems(
-  config: DeuTuiConfig,
+  config: PiDeuTuiConfig,
   copy: SettingsCopy,
 ): SettingItem[] {
   const segs = config.footerSegments;
@@ -336,7 +336,7 @@ function buildSegmentsItems(
 }
 
 function buildTelemetryItems(
-  config: DeuTuiConfig,
+  config: PiDeuTuiConfig,
   copy: SettingsCopy,
 ): SettingItem[] {
   const telemetry = config.telemetry;
@@ -372,7 +372,7 @@ function buildTelemetryItems(
   ];
 }
 
-function buildItems(tab: Tab, config: DeuTuiConfig): SettingItem[] {
+function buildItems(tab: Tab, config: PiDeuTuiConfig): SettingItem[] {
   const copy = COPY[config.settingsLanguage];
   switch (tab) {
     case "features":
@@ -389,8 +389,8 @@ function buildItems(tab: Tab, config: DeuTuiConfig): SettingItem[] {
 function handleSettingChange(
   tab: Tab,
   itemId: string,
-  config: DeuTuiConfig,
-): DeuTuiConfig {
+  config: PiDeuTuiConfig,
+): PiDeuTuiConfig {
   if (tab === "features") {
     if (itemId === "enabled") return toggleEnabled(config);
     if (itemId === "inlineFooter")
@@ -405,11 +405,11 @@ function handleSettingChange(
   if (tab === "segments") {
     return toggleSetting(
       config,
-      itemId as keyof DeuTuiConfig["footerSegments"],
+      itemId as keyof PiDeuTuiConfig["footerSegments"],
     );
   }
   if (tab === "telemetry") {
-    return toggleTelemetry(config, itemId as keyof DeuTuiConfig["telemetry"]);
+    return toggleTelemetry(config, itemId as keyof PiDeuTuiConfig["telemetry"]);
   }
   return config;
 }
@@ -447,12 +447,12 @@ function insertComponentAfter(
 
 class SettingsUi implements SettingsUiHandle {
   private tab: Tab = "features";
-  private config: DeuTuiConfig;
+  private config: PiDeuTuiConfig;
   private selectList: SelectList;
   private readonly selectedItemByTab: Partial<Record<Tab, string>> = {};
   private readonly container: Box;
   private readonly theme: Theme;
-  private readonly onChange: (config: DeuTuiConfig) => void;
+  private readonly onChange: (config: PiDeuTuiConfig) => void;
   private readonly onClose: () => void;
   private cachedWidth: number | undefined;
   private cachedLines: string[] | undefined;
@@ -461,8 +461,8 @@ class SettingsUi implements SettingsUiHandle {
 
   constructor(
     theme: Theme,
-    config: DeuTuiConfig,
-    onChange: (config: DeuTuiConfig) => void,
+    config: PiDeuTuiConfig,
+    onChange: (config: PiDeuTuiConfig) => void,
     onClose: () => void,
   ) {
     this.theme = theme;
@@ -655,13 +655,13 @@ class SettingsUi implements SettingsUiHandle {
 export function registerSettingsCommand(
   pi: ExtensionAPI,
   hooks: {
-    getConfig: () => DeuTuiConfig;
-    onConfigChanged: (config: DeuTuiConfig) => void;
+    getConfig: () => PiDeuTuiConfig;
+    onConfigChanged: (config: PiDeuTuiConfig) => void;
     onOverlayClosed?: () => void;
   },
 ): void {
-  pi.registerCommand("deu-tui", {
-    description: "Open the deu-tui settings UI",
+  pi.registerCommand("pi-deu-tui", {
+    description: "Open the pi-deu-tui settings UI",
     handler: async (_args, ctx: ExtensionContext) => {
       if (!ctx.hasUI) return;
       await ctx.ui.custom<void>(

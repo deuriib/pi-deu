@@ -3,7 +3,7 @@ import type {
   ExtensionContext,
 } from "@earendil-works/pi-coding-agent";
 import {
-  type DeuTuiConfig,
+  type PiDeuTuiConfig,
   DEFAULT_CONFIG,
   ensureConfigExists,
   loadConfig,
@@ -59,7 +59,7 @@ export default function (pi: ExtensionAPI) {
   const state: FooterState = createInitialState();
   const turnTelemetry = new TurnTelemetryTracker();
 
-  let config: DeuTuiConfig = structuredClone(DEFAULT_CONFIG);
+  let config: PiDeuTuiConfig = structuredClone(DEFAULT_CONFIG);
   let active = false;
   let lastCtx: ExtensionContext | undefined;
   let requestFooterRender: (() => void) | undefined;

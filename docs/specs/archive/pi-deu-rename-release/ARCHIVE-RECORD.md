@@ -3,10 +3,10 @@
 **Spec:** docs/specs/archive/pi-deu-rename-release/SPEC-pi-deu-rename-release.md
 **Date:** 2026-09-29
 **Gate verdict:** OPEN
-**Commit(s):** pending
+**Commit(s):** cf0c39a9c2c2d195548fbbf2bb6d812f07f42207
 **Tag:** v0.1.0
-**Tag object:** pending
-**Backfilled by:** pending
+**Tag object:** 7933361bbafe3ce76d1b48094dda06bc7cf9d7fe
+**Backfilled by:** engineering (2026-09-29, single-thread — second reader N/A sin subagents)
 **Ship type:** deploy
 
 ## Promoted (survive in archive/pi-deu-rename-release/)

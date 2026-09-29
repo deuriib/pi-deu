@@ -9,7 +9,7 @@ export interface PackageMeta {
 }
 
 // Fallback si package.json no se puede leer — la extensión debe cargar igual.
-const FALLBACK: PackageMeta = { name: "deu", version: "0.0.0" };
+const FALLBACK: PackageMeta = { name: "pi-deu", version: "0.0.0" };
 
 let cached: PackageMeta | undefined;
 

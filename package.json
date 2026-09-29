@@ -1,7 +1,7 @@
 {
-  "name": "deu",
+  "name": "pi-deu",
   "version": "0.1.0",
-  "description": "deu — opinionated Pi coding agent with mentor persona, 9-step Frame-to-Ship delivery chain, safety guards, memory & todo built-in",
+  "description": "pi-deu - opinionated Pi coding agent with mentor persona, 9-step Frame-to-Ship delivery chain, safety guards, memory and todo built-in",
   "type": "module",
   "license": "MIT",
   "keywords": [
@@ -12,7 +12,8 @@
     "pi-skill",
     "ai-coding-agent",
     "code-review",
-    "agentic-workflow"
+    "agentic-workflow",
+    "pi-deu"
   ],
   "engines": {
     "node": ">=22.19.0"
@@ -28,7 +29,7 @@
     "APPEND_SYSTEM.md"
   ],
   "bin": {
-    "deu": "./index.ts"
+    "pi-deu": "./index.ts"
   },
   "pi": {
     "extensions": [
@@ -61,8 +62,8 @@
     ]
   },
   "piConfig": {
-    "name": "deu",
-    "configDir": ".deu"
+    "name": "pi-deu",
+    "configDir": ".pi-deu"
   },
   "peerDependencies": {
     "@earendil-works/pi-ai": "0.87.1",
@@ -110,5 +111,13 @@
     "@juicesharp/rpiv-todo",
     "pi-cache-optimizer",
     "pi-rewind-hook"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deuriib/pi-deu.git"
+  },
+  "homepage": "https://github.com/deuriib/pi-deu#readme",
+  "bugs": {
+    "url": "https://github.com/deuriib/pi-deu/issues"
+  }
 }

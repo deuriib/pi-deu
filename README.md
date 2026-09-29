@@ -1,18 +1,15 @@
 # deu-pi-agent v0 — Pi agent autocontenido
 
-Custom Pi agent `deu`: system prompt + `pi-todo` + `pi-memory`, todo declarado en `package.json` bajo `src/`. Sin `.pi/settings.json`, sin `SYSTEM.md` suelto.
+Custom Pi agent `deu`: system prompt autocontenido vía extensión (`before_agent_start`, replace). Fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package.
 
 ## Estructura
 
-- `package.json` — bloque `pi` (`extensions/skills/prompts` → `src/` propio). Sin Pi packages en `dependencies`: los gestiona Pi en `.pi/npm/`.
-- `.pi/settings.json` — project packages pineados (Pi auto-instala al arrancar tras `/trust`): `pi-todo@1.2.0`, `pi-memory@0.4.0`, `pi-subagents@0.73.1`, `pi-mcp-adapter@3.1.0`, `pi-web-access@0.33.0`, `pi-interview@0.13.0`, `@gotgenes/pi-permission-system@35.0.1`.
-- `src/system/{persona,core,router,delegation,tools,guardrails}.md` — fuente del system prompt (vive con el package). `src/extensions/deu-core.ts` los carga en runtime e inyecta por `before_agent_start`. Sin assemble, sin `SYSTEM.md`.
-- `src/extensions/deu-core.ts` — guarda destructivo, comando `/deu`, discover de skills/prompts. No inyecta prompt: Pi es dueño vía `.pi/SYSTEM.md`.
-- `src/system/{persona,core,tools,guardrails}.md` — system prompt deu por partes; `SYSTEM.md` es vista de lectura.
-- `src/extensions/deu-core.ts` — inyecta `systemPrompt` en `before_agent_start` (replace, preserva `customPrompt`), expone `skillPaths/promptPaths` en `resources_discover`, comando `/deu`, guard destructivo en `tool_call`.
-- `src/skills/deu-check/` + `src/prompts/deu-check.md` — diagnóstico v0.
-- `scripts/verify-v0.mjs` — `node scripts/verify-v0.mjs`.
-- `docs/specs/decisions/0001-deu-v0-autocontenido.md` — por qué autocontenido, por qué `pi-memory` sin worker, replace vs append.
+- `package.json` — bloque `pi` (`extensions/skills/prompts` → `./extensions`, `./skills`, `./prompts`, más `node_modules/` bundleados). Sin claves `pi.system_prompt`: Pi no las lee. Los paths propios viven en el bloque `deu` (`systemPrompt`, `appendSystemPrompt`).
+- `SYSTEM.md` + `APPEND_SYSTEM.md` — fuente del system prompt (vive con el package, viaja con `npm:deu`).
+- `lib/system-prompts.ts` — loader best-effort (`loadDeuPrompts`, `composeDeuSystemPrompt`): lee ambos `.md` en utf8, `trimEnd + \n`, missing-file → `""` sin romper carga.
+- `extensions/deu-core.ts` — inyecta `systemPrompt` en `before_agent_start` (replace, preserva `customPrompt` + `appendSystemPrompt` del usuario como sufijo), comando `/deu` (chars + fuentes), guard destructivo en `tool_call`, `/deu-config`.
+- No se usa `.deu/SYSTEM.md` ni `~/.deu/agent/SYSTEM.md`: la inyección forced-prompt pisa el default y evita doble carga.
+- `docs/specs/decisions/0002-deu-system-prompt-autocontenido.md` — por qué autocontenido vía extensión, orden de composición, replace vs append.
 
 ## Uso
 

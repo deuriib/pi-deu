@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["node"]
+    "types": ["node"],
   },
-  "include": ["src/**/*.ts", "scripts/**/*.mjs"]
+  "include": ["extensions/**/*.ts"],
 }

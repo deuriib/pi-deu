@@ -1,4 +1,4 @@
-# Architecture Contract: deu
+# Architecture Contract: pi-deu
 
 **Owner:** engineering owner (vasquez); owning domain leads for non-engineering contracts (linked, engineering consolidates index only)
 **Version:** v1
@@ -7,7 +7,7 @@
 
 ## Overview
 
-`deu` — opinionated Pi coding-agent distribution. Modular monolith, hexagonal core, I/O at edges. Delivery via Frame→Ship chain (`skills/start-here/SKILL.md` canonical order). Full guardrails: `SYSTEM.md` + `APPEND_SYSTEM.md` (single source of truth, cited — never pasted here).
+`pi-deu` — opinionated Pi coding-agent distribution. Modular monolith, hexagonal core, I/O at edges. Delivery via Frame→Ship chain (`skills/start-here/SKILL.md` canonical order). Full guardrails: `SYSTEM.md` + `APPEND_SYSTEM.md` (single source of truth, cited — never pasted here).
 
 ## The 4-line note
 
@@ -27,18 +27,19 @@ SPEC:<spec-path>#<REQ-IDs> / HARD:<constraints> / GATE:<verdict> / DOMAINS:[<lis
 
 | Component | Responsibility | Interface |
 |-----------|---------------|-----------|
-| launcher (`index.ts`) | Resolve + spawn Pi runtime, set configDir | PATH lookup `pi-launcher.js`, `PI_CODING_AGENT_DIR` → `~/.deu/agent` |
-| lib (`lib/pkg-meta.ts`) | Package name/version, root resolve | `getPackageMeta(callerUrl)`, `packageRoot(fromUrl)` + fallback |
-| deu-core (`extensions/deu-core.ts`) | Destructive-guard, fail-closed | `tool_call` gate; sole role since decision `0003` |
-| deu-mcp (`extensions/deu-mcp.ts`) | External MCP registration | `session_start` → context7 + parallel-search; notify-warn on fail |
-| deu-tui (`extensions/deu-tui/`) | Custom TUI widgets + telemetry | `getPendingUiChange`, `isTuiContext`, lifecycle/state/peek |
-| skills (`skills/`) | Frame→Ship step contracts | One `SKILL.md` per step, IN/OUT/NEXT/STOP |
-| prompt seed (`SYSTEM.md`, `APPEND_SYSTEM.md`) | Persona + guardrails seed | Copied to configDir; runtime loads from `.deu/`, reload required |
+| launcher (`index.ts`) | Resolve + spawn Pi runtime, set configDir | PATH lookup `pi-launcher.js`, `PI_DEU_CODING_AGENT_DIR` → `~/.pi-deu/agent` (fallback `DEU_*`, `PI_*` legacy) |
+| lib (`lib/pkg-meta.ts`) | Package name/version, root resolve | `getPackageMeta(callerUrl)`, `packageRoot(fromUrl)` + fallback `pi-deu@0.0.0` |
+| pi-deu-core (`extensions/pi-deu-core.ts`) | Destructive-guard, fail-closed | `tool_call` gate; sole role since decision `0003` |
+| pi-deu-mcp (`extensions/pi-deu-mcp.ts`) | External MCP registration | `session_start` → context7 + parallel-search; notify-warn on fail |
+| pi-deu-tui (`extensions/pi-deu-tui/`) | Custom TUI widgets + telemetry | `getPendingUiChange`, `isTuiContext`, lifecycle/state/peek |
+| skills (`skills/`) | Frame→Ship step contracts | One `SKILL.md` per step, IN/OUT/NEXT/STOP (incl. `pi-deu-check`) |
+| prompt seed (`SYSTEM.md`, `APPEND_SYSTEM.md`) | Persona + guardrails seed | Copied to configDir; runtime loads from `.pi-deu/`, reload required |
+| release (`.github/workflows/release.yml`) | Tag `v*` → typecheck → npm provenance publish | `contents: write, id-token: write`, node 22, OIDC Trusted Publishing |
 | decisions (`docs/specs/decisions/`) | ADRs for contract turns | `NNNN-<slug>.md`, one number = one file, never reuse |
 
 ## Data Flow
 
-User goal → `agree-the-goal` → requirements + this contract → `propose` (PROPOSAL.md, touches nothing) → `check-security`/`check-design` gates → `build` (approved files only, REQ-ID → test → file) → `review` (blind, one fail = CLOSED) → `verify` (HANDOFF.md) → `release` (notes, changelog, tag). External MCP traffic stays in `deu-mcp` boundary; TUI-only behaviors gated on TUI context.
+User goal → `agree-the-goal` → requirements + this contract → `propose` (PROPOSAL.md, touches nothing) → `check-security`/`check-design` gates → `build` (approved files only, REQ-ID → test → file) → `review` (blind, one fail = CLOSED) → `verify` (HANDOFF.md) → `release` (notes, changelog, tag). External MCP traffic stays in `pi-deu-mcp` boundary; TUI-only behaviors gated on TUI context.
 
 ## Invariants
 

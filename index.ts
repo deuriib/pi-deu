@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * deu — lanzador rebrandeado sobre el binario `pi`.
+ * deu — lanzador `deu` sobre el runtime Pi.
  *
- * - Rebrand de config home: `PI_CODING_AGENT_DIR` → `~/.deu/agent`
+ * - Config home: `DEU_CODING_AGENT_DIR` → `~/.deu/agent` (acepta legacy `PI_CODING_AGENT_DIR`)
  *   (solo si el usuario no lo fijó ya; se respeta override explícito).
  * - Todo lo demás (argv, stdio, env, exit code) se hereda tal cual.
  *
@@ -39,7 +39,7 @@ function findPiLauncher(): string | undefined {
 }
 
 function agentDir(): string {
-  const over = env["PI_CODING_AGENT_DIR"];
+  const over = env["DEU_CODING_AGENT_DIR"] ?? env["PI_CODING_AGENT_DIR"];
   if (over !== undefined && over.length > 0) return over;
   const dir = join(homedir(), ".deu", "agent");
   mkdirSync(dir, { recursive: true });
@@ -61,7 +61,7 @@ function main(): void {
           env: { ...env, PI_CODING_AGENT_DIR: agentDir() },
         });
   child.on("error", (err) => {
-    console.error(`deu: no se pudo lanzar "pi" (${err.message})`);
+    console.error(`deu: no se pudo lanzar el runtime (${err.message})`);
     exit(1);
   });
   child.on("exit", (code, signal) => {

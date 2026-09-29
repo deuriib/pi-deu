@@ -1,5 +1,5 @@
 ---
-description: Diagnóstico deu v0 (system + todo + memory)
+description: Diagnóstico deu (system + todo + memory)
 argument-hint: "[detalle]"
 ---
 

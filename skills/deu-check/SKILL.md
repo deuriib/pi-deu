@@ -1,6 +1,6 @@
 ---
 name: deu-check
-description: Verifica que el agente deu v0 esté activo (system prompt + todo + memory) y reporta qué falta.
+description: Verifica que el agente deu esté activo (system prompt + todo + memory) y reporta qué falta.
 ---
 
 # deu-check

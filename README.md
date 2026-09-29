@@ -1,10 +1,10 @@
-# deu-pi-agent v0 — Pi agent autocontenido
+# deu — agente autocontenido
 
-Custom Pi agent `deu`: system prompt autocontenido vía extensión (`before_agent_start`, replace). Fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package.
+Agente `deu`: system prompt autocontenido vía extensión (`before_agent_start`, replace). Fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package.
 
 ## Estructura
 
-- `package.json` — bloque `pi` (`extensions/skills/prompts` → `./extensions`, `./skills`, `./prompts`, más `node_modules/` bundleados). Sin claves `pi.system_prompt`: Pi no las lee. Los paths propios viven en el bloque `deu` (`systemPrompt`, `appendSystemPrompt`).
+- `package.json` — bloque `pi` (`extensions/skills/prompts` → `./extensions`, `./skills`, `./prompts`, más `node_modules/` bundleados). Sin claves `pi.system_prompt`: el runtime no las lee. Los paths propios viven en el bloque `piConfig` (`name: deu`, `configDir: .deu`).
 - `SYSTEM.md` + `APPEND_SYSTEM.md` — fuente del system prompt (vive con el package, viaja con `npm:deu`).
 - `lib/system-prompts.ts` — loader best-effort (`loadDeuPrompts`, `composeDeuSystemPrompt`): lee ambos `.md` en utf8, `trimEnd + \n`, missing-file → `""` sin romper carga.
 - `extensions/deu-core.ts` — inyecta `systemPrompt` en `before_agent_start` (replace, preserva `customPrompt` + `appendSystemPrompt` del usuario como sufijo), comando `/deu` (chars + fuentes), guard destructivo en `tool_call`, `/deu-config`.
@@ -15,9 +15,8 @@ Custom Pi agent `deu`: system prompt autocontenido vía extensión (`before_agen
 
 ```bash
 npm install            # dev local
-node scripts/verify-v0.mjs
-# en Pi, dentro del repo: /trust (una vez) + /reload → auto-instala los project packages
-pi config              # deu-core + todo + memory deben aparecer enabled
+# dentro del repo: /trust (una vez) + /reload → auto-instala los project packages
+deu config             # deu-core + todo + memory deben aparecer enabled
 ```
 
 En sesión: `/deu` estado, `/skill:deu-check` o `/deu-check` diagnóstico, `todo({action:"list"})`, `memory_status`.

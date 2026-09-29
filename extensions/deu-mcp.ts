@@ -33,7 +33,7 @@ export default function (pi: ExtensionAPI) {
     } catch (err) {
       if (ctx.hasUI) {
         ctx.ui.notify(
-          `deu-core: no se pudo cargar src/system/* (${err instanceof Error ? err.message : String(err)})`,
+          `deu-mcp: no se pudo registrar MCP (${err instanceof Error ? err.message : String(err)})`,
           "warning",
         );
       }

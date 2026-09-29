@@ -14,7 +14,7 @@ import {
   visibleWidth,
 } from "./utils.ts";
 
-// Versión local del paquete — fuente única: package.json (no el VERSION de Pi).
+// Versión local del paquete — fuente única: package.json (no la versión del runtime base).
 const DEU_VERSION = getPackageMeta(import.meta.url).version;
 
 const SLOGAN = "Haces las cosas como para Dios";
@@ -334,7 +334,7 @@ export function installHeader(
     try {
       ctx.ui.setHeader(undefined);
     } catch {
-      // best-effort: Pi restaura su header nativo al cerrar sesión.
+      // best-effort: el runtime restaura su header nativo al cerrar sesión.
     }
   };
 }

@@ -1,0 +1,24 @@
+{
+  "autoCompact": true,
+  "tuiMode": "fullscreen",
+  "quietStartup": true,
+  "hideThinkingBlock": true,
+  "enableInstallTelemetry": false,
+  "packages": [
+    "npm:pi-subagents",
+    "npm:pi-opencode-direct",
+    "npm:pi-antigravity",
+    "npm:pi-mcp-adapter",
+    "npm:pi-web-access",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:@gotgenes/pi-permission-system",
+    "npm:@upstash/context7-pi",
+    "npm:@schovest/pi-goal",
+    "npm:pi-open-tui",
+    "npm:pi-hermes-memory",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-cache-optimizer",
+    "npm:@ar-llm/pi-custom-compaction",
+    "npm:pi-rewind-hook"
+  ]
+}

@@ -1,5 +1,7 @@
 import { readFileSync } from "node:fs";
 import { findPackageJSON } from "node:module";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 export interface PackageMeta {
   name: string;
@@ -25,7 +27,9 @@ export function getPackageMeta(callerUrl: string): PackageMeta {
       if (typeof parsed === "object" && parsed !== null) {
         const rec = parsed as Record<string, unknown>;
         const name =
-          typeof rec.name === "string" && rec.name.length > 0 ? rec.name : FALLBACK.name;
+          typeof rec.name === "string" && rec.name.length > 0
+            ? rec.name
+            : FALLBACK.name;
         const version =
           typeof rec.version === "string" && rec.version.length > 0
             ? rec.version
@@ -39,4 +43,8 @@ export function getPackageMeta(callerUrl: string): PackageMeta {
   }
   cached = { ...FALLBACK };
   return cached;
+}
+
+export function packageRoot(fromUrl: string): string {
+  return resolve(dirname(fileURLToPath(fromUrl)), "..", "..");
 }

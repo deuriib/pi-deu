@@ -1,16 +1,10 @@
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
-import { getPackageMeta } from "./lib/pkg-meta.js";
+import { getPackageMeta, packageRoot } from "../lib/index.js";
 
 // Fuente única: package.json
 const { name: PKG_NAME, version: PKG_VERSION } = getPackageMeta(
   import.meta.url,
 );
-
-function packageRoot(fromUrl: string): string {
-  return resolve(dirname(fileURLToPath(fromUrl)), "..", "..");
-}
 
 function isDestructiveBash(command: unknown): boolean {
   if (typeof command !== "string") return false;
@@ -29,9 +23,21 @@ export default function (pi: ExtensionAPI) {
   const root = packageRoot(import.meta.url);
 
   pi.on("session_start", async (_event, ctx) => {
-    if (ctx.hasUI) {
-      //
+    try {
+    } catch (err) {
+      if (ctx.hasUI) {
+        ctx.ui.notify(
+          `deu-core: no se pudo cargar src/system/* (${err instanceof Error ? err.message : String(err)})`,
+          "warning",
+        );
+      }
     }
+  });
+
+  // System prompt autocontenido (skill pi-agent extensions.md: before_agent_start).
+  // Replace deu puro; el customPrompt del usuario se preserva como sufijo (ADR-0001).
+  pi.on("before_agent_start", async (event) => {
+    return {};
   });
 
   pi.on("tool_call", async (event, ctx) => {
@@ -66,17 +72,17 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand("deu", {
-    description: "Muestra estado deu (system prompt + integraciones)",
+    description: "Show state deu",
     handler: async (_args, ctx) => {
+      let systemLine: string;
+
       const lines = [
-        `${PKG_NAME} v${PKG_VERSION} autocontenido`,
+        `${PKG_NAME} v${PKG_VERSION}`,
         `root: ${root}`,
-        `system: .pi/SYSTEM.md (Pi native, fuente .pi/system/* + assemble-system.mjs)`,
-        `todo: tool 'todo' -> .pi/todo.json (project package npm:pi-todo)`,
-        `memory: MEMORY.md + daily/ + SCRATCHPAD.md (project package npm:pi-memory, qmd opt-in)`,
         `modo: ${ctx.mode} | hasUI: ${String(ctx.hasUI)} | cwd: ${ctx.cwd}`,
       ];
-      await ctx.ui.notify(lines.join("\n"), "info");
+
+      ctx.ui.notify(lines.join("\n"), "info");
     },
   });
 }

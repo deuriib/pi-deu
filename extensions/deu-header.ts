@@ -4,7 +4,7 @@ import {
 } from "@earendil-works/pi-coding-agent";
 import type { Component, TUI } from "@earendil-works/pi-tui";
 import { truncateToWidth, visibleWidth } from "@earendil-works/pi-tui";
-import { getPackageMeta } from "./lib/pkg-meta.js";
+import { getPackageMeta } from "../lib/pkg-meta.js";
 
 // Versión local del paquete — fuente única: package.json (no el VERSION de Pi).
 const DEU_VERSION = getPackageMeta(import.meta.url).version;
@@ -163,7 +163,7 @@ class DeuHeader implements Component {
     ];
 
     const lines = [
-      borderLine("╭", `${paint("Deu")} v${DEU_VERSION}`, "╮", width, paint),
+      borderLine("╭", `${paint("deu")} v${DEU_VERSION}`, "╮", width, paint),
     ];
     for (let i = 0; i < leftLines.length; i++) {
       const content = useTips

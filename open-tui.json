@@ -29,8 +29,8 @@
     "ttft": true,
     "duration": true,
     "tokens": true,
-    "stalls": true,
-    "cost": true
+    "stalls": false,
+    "cost": false
   },
   "thinkingPeek": {
     "lines": 1

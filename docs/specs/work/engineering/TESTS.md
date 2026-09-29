@@ -14,6 +14,8 @@
 | REQ-006 | E-006 | sin secretos en repo; security APPROVED | Attestation | pass | gates commit |
 | REQ-007 | E-001+E-002+E-003 | pack + typecheck + grep en verde | Attestation | pass | build commits |
 
+Nota: evidencias viven como `evidence/E-00X-*.md` (`.log` está en `.gitignore`; PROPOSAL §Test Plan citaba `.log`, misma evidencia, extensión corregida).
+
 Types: Attestation (sin lógica runtime nueva; rename + workflow declarativo — justificación escrita en PROPOSAL §Test Plan).
 
 ## Coverage Summary

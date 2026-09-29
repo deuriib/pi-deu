@@ -12,4 +12,4 @@
   - `deu-core.ts` queda únicamente con el guard destructivo de `tool_call`; caen los comandos `/deu` y `/deu-config`.
   - `lib/system-prompts.ts` eliminado junto con sus re-exports en `lib/index.ts`.
 - Verificación: `~/.deu/agent/APPEND_SYSTEM.md` byte a byte igual al del repo, y su contenido frame-ship aparece en el system prompt de la sesión viva.
-- Deuda abierta: `~/.deu/agent/SYSTEM.md` quedó desfasado respecto al repo — falta la línea de identidad `You are **deu**`. Requiere copia + recarga para que el rebranding surta efecto en runtime.
+- Resuelto 2026-09-29: `~/.deu/agent/SYSTEM.md` sincronizado con el repo, byte a byte. Copia previa en `~/.deu/agent/SYSTEM.md.bak-20260929-072007`. El cambio de identidad surte efecto al recargar la sesión — la sesión que ejecutó la copia seguía corriendo con el prompt anterior, como es esperado de un system prompt ya cargado.

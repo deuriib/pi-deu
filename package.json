@@ -68,7 +68,6 @@
     "typescript": "^5.9.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "verify:v0": "npm run typecheck && node scripts/verify-v0.mjs"
+    "typecheck": "tsc --noEmit"
   }
 }

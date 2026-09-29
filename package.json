@@ -24,8 +24,6 @@
     "deu": "./index.ts"
   },
   "pi": {
-    "system_prompt": "SYSTEM.md",
-    "append_system_prompt": "APPEND_SYSTEM.md",
     "extensions": [
       "./extensions",
       "./node_modules/pi-subagents/index.js",
@@ -52,12 +50,7 @@
       "./prompts",
       "./node_modules/pi-subagents/prompts",
       "./node_modules/@upstash/context7-pi/prompts"
-    ],
-    "subagents": {
-      "agents": [
-        "./agents"
-      ]
-    }
+    ]
   },
   "piConfig": {
     "name": "deu",

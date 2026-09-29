@@ -9,8 +9,5 @@ description: Verifica que el agente deu v0 esté activo (system prompt + todo + 
 
 ## Pasos
 
-1. Ejecuta `/deu` y anota `modo`, `cwd`, `hasUI`.
-2. Llama `todo({ action: "list", filter: "all" })` — si falla, reporta "pi-todo no cargado" con el error exacto.
-3. Llama `memory_status` — si falla, reporta "pi-memory no cargado" con el error exacto.
-4. Pide al modelo que repita el credo deu en una línea para confirmar el system prompt inyectado por `deu-core.ts` (fuente: `src/system/*.md`, carga en runtime).
-5. Reporta en 5 líneas: system, todo, memory, modo, siguiente acción. Sin azúcar: si algo falta, se dice con severidad y path out.
+1. Pide al modelo que repita el credo deu en una línea para confirmar el system prompt inyectado por `deu-core.ts` (fuente: `SYSTEM.md` + `APPEND_SYSTEM.md` en la raíz del package, carga en runtime).
+2. Reporta en 5 líneas: system, todo, memory, modo, siguiente acción. Sin azúcar: si algo falta, se dice con severidad y path out.

@@ -11,5 +11,5 @@
     "noEmit": true,
     "types": ["node"],
   },
-  "include": ["extensions/**/*.ts"],
+  "include": ["extensions/**/*.ts", "lib/**/*.ts", "index.ts"],
 }

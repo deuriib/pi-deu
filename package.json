@@ -13,6 +13,7 @@
   "files": [
     "extensions",
     "lib",
+    "agents",
     "skills",
     "prompts",
     "themes",
@@ -23,8 +24,10 @@
     "deu": "./index.ts"
   },
   "pi": {
+    "system_prompt": "SYSTEM.md",
+    "append_system_prompt": "APPEND_SYSTEM.md",
     "extensions": [
-      "./node_modules/pi-open-tui/extensions/open-tui/index.ts",
+      "./extensions",
       "./node_modules/pi-subagents/index.js",
       "./node_modules/pi-mcp-adapter/index.ts",
       "./node_modules/pi-web-access/dist",
@@ -38,8 +41,7 @@
       "./node_modules/pi-cache-optimizer/index.ts",
       "./node_modules/pi-hermes-memory/src/index.ts",
       "./node_modules/pi-opencode-direct/src/index.ts",
-      "./node_modules/pi-rewind-hook/index.ts",
-      "./extensions"
+      "./node_modules/pi-rewind-hook/index.ts"
     ],
     "skills": [
       "./skills",
@@ -50,7 +52,12 @@
       "./prompts",
       "./node_modules/pi-subagents/prompts",
       "./node_modules/@upstash/context7-pi/prompts"
-    ]
+    ],
+    "subagents": {
+      "agents": [
+        "./agents"
+      ]
+    }
   },
   "piConfig": {
     "name": "deu",
@@ -72,7 +79,6 @@
     "pi-cache-optimizer": "2.8.11",
     "pi-hermes-memory": "0.9.9",
     "pi-mcp-adapter": "3.1.0",
-    "pi-open-tui": "0.3.9",
     "pi-opencode-direct": "0.1.7",
     "pi-rewind-hook": "1.8.7",
     "pi-subagents": "0.73.1",
@@ -98,7 +104,6 @@
     "@gotgenes/pi-permission-system",
     "@upstash/context7-pi",
     "@schovest/pi-goal",
-    "pi-open-tui",
     "pi-hermes-memory",
     "@juicesharp/rpiv-todo",
     "pi-cache-optimizer",

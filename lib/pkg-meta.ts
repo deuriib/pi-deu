@@ -46,5 +46,11 @@ export function getPackageMeta(callerUrl: string): PackageMeta {
 }
 
 export function packageRoot(fromUrl: string): string {
-  return resolve(dirname(fileURLToPath(fromUrl)), "..", "..");
+  try {
+    const pkgPath = findPackageJSON(".", fromUrl);
+    if (pkgPath) return dirname(pkgPath);
+  } catch {
+    // best-effort: cae al fallback de un nivel
+  }
+  return resolve(dirname(fileURLToPath(fromUrl)), "..");
 }

@@ -17,6 +17,7 @@
     "themes",
     "README.md"
   ],
+  "pi": {},
   "piConfig": {
     "name": "deu",
     "configDir": ".deu"

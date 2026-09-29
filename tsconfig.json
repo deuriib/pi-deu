@@ -13,4 +13,5 @@
     "types": ["node"],
   },
   "include": ["extensions/**/*.ts", "lib/**/*.ts", "index.ts"],
+  "exclude": ["node_modules/**"],
 }

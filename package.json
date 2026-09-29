@@ -1,13 +1,18 @@
 {
   "name": "deu",
   "version": "0.1.0",
-  "description": "Agente deu autocontenido",
+  "description": "deu — opinionated Pi coding agent with mentor persona, 9-step Frame-to-Ship delivery chain, safety guards, memory & todo built-in",
   "type": "module",
   "license": "MIT",
   "keywords": [
+    "pi-agent",
+    "pi-coding-agent",
     "pi-package",
+    "pi-extension",
     "pi-skill",
-    "pi-extension"
+    "ai-coding-agent",
+    "code-review",
+    "agentic-workflow"
   ],
   "engines": {
     "node": ">=22.19.0"

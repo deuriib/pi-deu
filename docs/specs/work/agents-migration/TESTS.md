@@ -12,7 +12,7 @@
 | REQ-003 | T-003 | repo grep `agents/` historic-only | Regression | pass — code/config clean (only pi-subagents package paths); remaining mentions are historical docs/lane records | same as above |
 | REQ-003 | T-004 | `npm run typecheck` EXIT:0 | Regression | pass — green pre-delete and post-delete | same as above |
 | REQ-004 | E-004 | ADR-0006 merged | Review | pass | `0a7c532` (check-design gate) |
-| REQ-005 | E-005 | no-dup attestation | Attestation | pending (at review) | — |
+| REQ-005 | E-005 | no-dup attestation | Attestation | pass — skeptic verified per block (criteria-forms vs prose, design vs execution levels, new homes); no second copy found | `reviews/agents-migration/refuter.md` |
 | REQ-006 | T-005 | config grep: no `subagents.agents` | Regression | pass — pi keys are extensions/skills/prompts only | same as above |
 | REQ-006 | T-006 | name grep clean (9 names) | Regression | pass — strict word-boundary grep over all 15 migrated files clean | same as above |
 | Edge | E-006 | new-skill threshold + deu confirmation | Review | pass — CREATE finance/revenue/legal/people/brand; ENRICH rest | AUDIT.md decision block |

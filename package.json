@@ -29,9 +29,11 @@
     "APPEND_SYSTEM.md"
   ],
   "bin": {
-    "pi-deu": "./index.ts"
+    "deu": "./index.ts"
   },
   "pi": {
+    "system_prompt": "SYSTEM.md",
+    "append_system_prompt": "APPEND_SYSTEM.md",
     "extensions": [
       "./extensions",
       "./node_modules/pi-subagents/index.js",
@@ -62,8 +64,8 @@
     ]
   },
   "piConfig": {
-    "name": "pi-deu",
-    "configDir": ".pi-deu"
+    "name": "deu",
+    "configDir": ".deu"
   },
   "peerDependencies": {
     "@earendil-works/pi-ai": "0.87.1",

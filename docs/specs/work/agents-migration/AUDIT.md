@@ -124,9 +124,15 @@ Convention: persona/principles/responsibilities boilerplate is duplicate everywh
 | product | jimenez tables + growth taxonomy + writer/reviewer deltas (bulk duplicates guardrails) | ENRICH write-the-requirements/review (no new skill) |
 | security | barrera/grc/iam/incident deltas (homes exist: check-security/review) | ENRICH (no new skill) |
 
-## Spot-check sample proposed (E-002 — ≥1 per family + every LOW-confidence call that changes fate)
+## Spot-check sign-off (E-002) — SIGNED 2026-09-30
 
-Must-read for deu: data-engineer, backend, qa, security (duplicate-calls on lens-family logic), cost-analyst, deal-closer, copywriter (tie-rule duplicates), vasquez (reference-table format), dauhajre (finance-skill content), review-refuter (lens-migration format). 10 files.
+deu firmó muestra de 10 (data-engineer, backend, qa, security, cost-analyst, deal-closer, copywriter, vasquez, dauhajre, review-refuter) + veredictos + regla de empate-a-duplicado. Migración y borrado DESBLOQUEADOS.
+
+## New-skill decision (E-006) — CONFIRMED 2026-09-30
+
+CREATE: finance, revenue, legal, people, brand. ENRICH: automation/product/security content into existing skills (no new skills).
+
+Sample firmado (10): data-engineer, backend, qa, security, cost-analyst, deal-closer, copywriter, vasquez, dauhajre, review-refuter.
 
 ## Flags
 

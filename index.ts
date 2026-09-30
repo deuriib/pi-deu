@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * pi-deu — lanzador `pi-deu` sobre el runtime Pi.
+ * deu — lanzador `deu` sobre el runtime Pi.
  *
- * - Config home: `PI_DEU_CODING_AGENT_DIR` → `~/.pi-deu/agent` (acepta legacy `DEU_CODING_AGENT_DIR`, `PI_CODING_AGENT_DIR`)
+ * - Config home: `DEU_CODING_AGENT_DIR` → `~/.deu/agent` (acepta legacy `PI_DEU_CODING_AGENT_DIR`, `PI_CODING_AGENT_DIR`)
  *   (solo si el usuario no lo fijó ya; se respeta override explícito).
  * - Todo lo demás (argv, stdio, env, exit code) se hereda tal cual.
  *
@@ -39,29 +39,38 @@ function findPiLauncher(): string | undefined {
 }
 
 function agentDir(): string {
-  const over = env["PI_DEU_CODING_AGENT_DIR"] ?? env["DEU_CODING_AGENT_DIR"] ?? env["PI_CODING_AGENT_DIR"];
+  const over = env["DEU_CODING_AGENT_DIR"] ?? env["PI_DEU_CODING_AGENT_DIR"] ?? env["PI_CODING_AGENT_DIR"];
   if (over !== undefined && over.length > 0) return over;
-  const dir = join(homedir(), ".pi-deu", "agent");
+  const dir = join(homedir(), ".deu", "agent");
   mkdirSync(dir, { recursive: true });
   return dir;
 }
 
 function main(): void {
   const launcher = findPiLauncher();
+  // `DEU_*` es la identidad nueva (piConfig.name = "deu"); `PI_*` se mantiene
+  // porque el runtime Pi stock solo lee `PI_CODING_AGENT_DIR` (su piConfig
+  // propio no ve el nuestro). Cuando el runtime honre el rebrand, `DEU_*` manda.
+  const dir = agentDir();
+  const childEnv = {
+    ...env,
+    DEU_CODING_AGENT_DIR: dir,
+    PI_CODING_AGENT_DIR: env["PI_CODING_AGENT_DIR"] ?? dir,
+  };
   const child =
     launcher !== undefined
       ? spawn(execPath, [launcher, ...argv.slice(2)], {
           stdio: "inherit",
-          env: { ...env, PI_CODING_AGENT_DIR: agentDir() },
+          env: childEnv,
         })
       : // Fallback: `pi` en PATH (puede emitir DEP0190 en win32, inofensivo).
         spawn("pi", argv.slice(2), {
           stdio: "inherit",
           shell: true,
-          env: { ...env, PI_CODING_AGENT_DIR: agentDir() },
+          env: childEnv,
         });
   child.on("error", (err) => {
-    console.error(`pi-deu: no se pudo lanzar el runtime (${err.message})`);
+    console.error(`deu: no se pudo lanzar el runtime (${err.message})`);
     exit(1);
   });
   child.on("exit", (code, signal) => {

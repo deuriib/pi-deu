@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 Format based on [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.0] — 2026-09-30
+
+### Changed
+
+- **Extensión simple, sin rebranding**: eliminados `bin`, `piConfig` y `index.ts` launcher. `pi-deu` deja de ser host con bin `pi-deu`/`configDir .pi-deu`; ahora es extensión Pi estándar cargada vía `package.json` → `pi` (`system_prompt`/`extensions`/`skills`/`prompts`). Sin `DEU_*`/`PI_DEU_*` env, sin `.pi-deu` configDir. Docs (`README.md`, `AGENTS.md`, `extensions/AGENTS.md`, `DESIGN.md`) actualizados. `tsconfig.json` ya no incluye `index.ts`.
+
 ## [v0.1.0] — 2026-09-29
 
 ### Changed

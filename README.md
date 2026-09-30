@@ -1,6 +1,6 @@
-# pi-deu — the Pi agent that ships clean, reviewed code
+# pi-deu — the Pi extension that ships clean, reviewed code
 
-> Opinionated coding agent on top of Pi. Mentor persona, 9-step **Frame→Ship** chain, safety guards, memory + todo built-in.
+> Pi extension opinionada. Persona mentor, cadena **Frame→Ship** de 9 pasos, safety guards, memory + todo incluidos.
 > _"Haces las cosas como para Dios, por eso trabajas con excelencia, dedicación y minimalismo."_
 
 [![npm](https://img.shields.io/npm/v/pi-deu)](https://www.npmjs.com/package/pi-deu)
@@ -8,83 +8,90 @@
 [![node](https://img.shields.io/badge/node-%3E%3D22.19-green)](./package.json)
 [![pi](https://img.shields.io/badge/runtime-pi--coding--agent-purple)](https://www.npmjs.com/package/@earendil-works/pi-coding-agent)
 
-**One-liner:** `pi-deu` turns vague ideas into reviewed, shippable code — goal → requirements → proposal → build → review → verify → release. No vibe-coding, no silent failures, no messy history.
+**One-liner:** `pi-deu` convierte ideas vagas en código revisado y shipeable — goal → requirements → proposal → build → review → verify → release. Sin vibe-coding, sin fallos silenciosos, sin historial sucio.
 
-## Why pi-deu exists
+## Qué es
 
-Vanilla coding agents write code fast and leave you the mess: unclear goals, unreviewed diffs, no rollback story.
+Extensión simple para [Pi](https://www.npmjs.com/package/@earendil-works/pi-coding-agent). No es un rebrand ni un bin propio: se instala como `npm:pi-deu` y Pi la carga automáticamente vía `package.json` → `pi.extensions/skills/prompts`.
 
-`pi-deu` is the opposite default:
+## Por qué existe
 
-1. **Design before code.** Every change starts with a written goal + testable requirements + an approved proposal. No approval, no code.
-2. **Mentor, not autocomplete.** Corrects with the _why_, names real problems with severity + path out, no sugarcoating.
-3. **Reproducible by default.** Short-lived branches, Conventional Commits, green CI gates, rollback plan. Small disciplines, big craftsmanship.
+Vanilla escribe rápido y te deja el desastre: goals difusos, diffs sin revisar, sin rollback.
 
-## What you get
+`pi-deu` es el default opuesto:
 
-| Pillar | What it does for you |
+1. **Diseño antes que código.** Todo cambio empieza con goal escrito + requisitos testeables + propuesta aprobada. Sin aprobación, no hay código.
+2. **Mentor, no autocomplete.** Corrige con el _por qué_, nombra el problema real con severidad + salida, sin azúcar.
+3. **Reproducible por defecto.** Ramas efímeras, Conventional Commits, gates en verde, plan de rollback.
+
+## Qué te llevas
+
+| Pillar | Qué hace por ti |
 |---|---|
-| **Frame→Ship chain (9 steps)** | `agree-the-goal → write-the-requirements → propose → check-security/check-design → build → review → verify → release`. Each step has a skill, an input contract and a stop rule. |
-| **Mentor persona (`pi-deu`)** | Professional but close, direct, Dominican warmth. Reversible = move fast, irreversible = deliberate. Defaults over hedging. |
-| **Destructive guard (`pi-deu-core`)** | Blocks destructive bash before it runs. Fail-closed. |
-| **Memory + todo built-in** | `pi-hermes-memory` + `rpiv-todo` bundled — context survives sessions, work is trackable. |
-| **Self-contained install** | One `npm` package bundles extensions, skills and prompts. No manual wiring. |
+| **Frame→Ship (9 pasos)** | `agree-the-goal → write-the-requirements → propose → check-security/check-design → build → review → verify → release`. Cada paso es un skill con contrato IN/OUT/NEXT/STOP. |
+| **Persona mentor (`pi-deu`)** | Profesional y cercana, directa, con calor dominicano. Reversible = rápido, irreversible = deliberado. |
+| **Destructive guard (`pi-deu-core`)** | Bloquea bash destructivo antes de ejecutar. Fail-closed. |
+| **Memory + todo incluidos** | `pi-hermes-memory` + `rpiv-todo` — contexto sobrevive sesiones, trabajo trackeable. |
+| **Instalación autocontenida** | Un solo `npm` package. Sin wiring manual. |
 
-Skills included: `start-here`, `agree-the-goal`, `write-the-requirements`, `propose`, `check-security`, `check-design`, `build`, `review`, `verify`, `release`, plus `pi-deu-check` (health diagnostic) and `fix-a-bug`, `init-deep`, `open-a-pull-request`.
+Skills incluidos: `start-here`, `agree-the-goal`, `write-the-requirements`, `propose`, `check-security`, `check-design`, `build`, `review`, `verify`, `release`, más `pi-deu-check` (diagnóstico) y `fix-a-bug`, `init-deep`, `open-a-pull-request`.
 
-## 30-second quickstart
+## 30 segundos — quickstart
 
 ```bash
 npm install -g pi-deu
-pi-deu
-# inside the session:
-/pi-deu-check   # persona + todo + memory must show enabled
+# o en tu proyecto
+npm install pi-deu
+
+# lanza Pi normal (no hay bin propio)
+pi
+# dentro de la sesión:
+/pi-deu-check   # persona + todo + memory deben aparecer habilitados
 ```
 
-Working inside this repo:
+Dentro de este repo:
 
 ```bash
 npm install
-# then in session: /trust (once) + /reload → project packages auto-install
-pi-deu config   # deu-core + todo + memory should appear enabled
+# en la sesión: /trust (una vez) + /reload → auto-instala packages del proyecto
+pi config   # pi-deu + todo + memory deben aparecer habilitados
 ```
 
 ## pi-deu vs. vanilla Pi
 
 | | vanilla Pi | pi-deu |
 |---|---|---|
-| Persona | generic assistant | mentor with creed: excellence, dedication, minimalism |
-| Workflow | free-form prompting | enforced Frame→Ship chain, proposal must be approved first |
-| Safety | you remember flags | destructive-guard + security/design check gates |
-| Memory | per-session | persistent memory + todo across sessions |
-| History | whatever the model emits | atomic Conventional Commits, no direct-to-main |
+| Persona | genérica | mentor con credo: excelencia, dedicación, minimalismo |
+| Workflow | prompting libre | cadena Frame→Ship, propuesta debe aprobarse primero |
+| Safety | tú recuerdas flags | destructive-guard + gates check-security/design |
+| Memory | por sesión | memoria persistente + todo entre sesiones |
+| Historial | lo que emita el modelo | Conventional Commits atómicos, no direct-to-main |
 
-## How it works (60 seconds)
+## Cómo funciona (60s)
 
-- **Source of prompt:** `SYSTEM.md` + `APPEND_SYSTEM.md`. They ship with `npm:pi-deu` as seed, but **the runtime loads them from the configDir**, not from the package root.
-- **ConfigDir wins:** `<project>/.pi-deu/SYSTEM.md` when trusted, else `~/.pi-deu/agent/SYSTEM.md` (same for `APPEND_SYSTEM.md`). No custom loader — after copying a new `.md`, reload.
-- **Package wiring:** `package.json` → `pi` block points at `./extensions`, `./skills`, `./prompts` + bundled `node_modules/`. Own paths live in `piConfig` (`name: pi-deu`, `configDir: .pi-deu`).
-- **Why configDir, not extension?** See `docs/specs/decisions/0003-system-prompt-desde-configdir.md` (supersedes `0002`).
+- **Prompt:** `SYSTEM.md` + `APPEND_SYSTEM.md` vía `package.json` → `pi.system_prompt` / `pi.append_system_prompt`. No hay `piConfig` ni `configDir` custom.
+- **Wiring:** `package.json` → bloque `pi` apunta a `./extensions`, `./skills`, `./prompts` + `node_modules/` bundleados.
+- **Extensión simple:** no hay `bin`, no hay `index.ts` launcher, no hay `.pi-deu` — es una extensión, no un host rebrandeado.
 
-## Commands you'll actually use
+## Comandos que usarás
 
-- `/pi-deu-check` — health diagnostic (persona, todo, memory)
-- `agree-the-goal` — "what are we building + what counts as success"
-- `propose` — plan the diff (files, risks, test plan), then stop and wait for yes
-- `build` — only approved files, one test per requirement
-- `review` → `verify` → `release` — reviewers can't see each other, single fail = CLOSED, then handoff + changelog + tag
+- `/pi-deu-check` — diagnóstico (persona, todo, memory)
+- `agree-the-goal` — "qué construimos + qué cuenta como éxito"
+- `propose` — planifica el diff (archivos, riesgos, plan de test), luego para y espera sí
+- `build` — solo archivos aprobados, un test por requisito
+- `review` → `verify` → `release` — reviewers no se ven entre sí, un solo fail = CLOSED, luego handoff + changelog + tag
 
 ## Non-goals
 
-- No magic framework, no lock-in. Modular monolith first, hexagonal core, I/O at edges.
-- No unsubstantiated claims. If it's not in code, ADRs or tests, it's not promised.
+- Sin framework mágico ni lock-in. Monolito modular primero, core hexagonal, I/O en bordes.
+- Sin claims sin sustento. Si no está en código, ADRs o tests, no se promete.
 
-## Contributing / docs
+## Contribuir / docs
 
-- Decisions: `docs/specs/decisions/`
-- Design singleton: `docs/specs/design/DESIGN.md` (contract changes need a decision note)
-- License: MIT — use it, fork it, ship with it.
+- Decisiones: `docs/specs/decisions/`
+- Contrato arquitectura: `docs/specs/design/DESIGN.md` (cambios de contrato necesitan decision note)
+- Licencia: MIT
 
 ---
 
-_Built con excelencia, dedicación y minimalismo._ How's it going? Let's ship clean. 🚢
+_Con excelencia, dedicación y minimalismo._ Let's ship clean. 🚢

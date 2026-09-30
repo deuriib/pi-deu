@@ -1,6 +1,6 @@
 {
   "name": "pi-deu",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "pi-deu - opinionated Pi coding agent with mentor persona, 9-step Frame-to-Ship delivery chain, safety guards, memory and todo built-in",
   "type": "module",
   "license": "MIT",
@@ -23,14 +23,10 @@
     "lib",
     "skills",
     "prompts",
-    "index.ts",
     "README.md",
     "SYSTEM.md",
     "APPEND_SYSTEM.md"
   ],
-  "bin": {
-    "deu": "./index.ts"
-  },
   "pi": {
     "system_prompt": "SYSTEM.md",
     "append_system_prompt": "APPEND_SYSTEM.md",
@@ -62,10 +58,6 @@
       "./node_modules/pi-subagents/prompts",
       "./node_modules/@upstash/context7-pi/prompts"
     ]
-  },
-  "piConfig": {
-    "name": "deu",
-    "configDir": ".deu"
   },
   "peerDependencies": {
     "@earendil-works/pi-ai": "0.87.1",

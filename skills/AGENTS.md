@@ -4,7 +4,7 @@
 
 ## OVERVIEW
 
-Frame→Ship chain skills: one skill per step with IN/OUT/NEXT/STOP + stop rules.
+Frame→Ship chain skills: one skill per step with IN/OUT/NEXT/STOP + stop rules, plus lateral advisory skills (`brand`, `revenue`, `legal`, `finance`, `people`) that never step — they attach via `DOMAINS` + the `review` lane.
 
 ## WHERE TO LOOK
 
@@ -16,10 +16,11 @@ Frame→Ship chain skills: one skill per step with IN/OUT/NEXT/STOP + stop rules
 | Risk gates | `check-security/`, `check-design/` | Threat checklist / decision note on contract change |
 | Execute + assure | `build/`, `review/`, `verify/`, `release/` | Approved files only → blind review → HANDOFF → notes/tag |
 | Ops extras | `fix-a-bug/`, `open-a-pull-request/`, `init-deep/`, `pi-deu-check/` | Failing-test-first; <400-line PRs; bootstrap; health check |
+| Domain advisories | `brand/`, `revenue/`, `legal/`, `finance/`, `people/` | Advisory only, never dispatch/gate; load after step skill, cite by path/section |
 
 ## STRUCTURE
 
-13 step dirs (`agree-the-goal` … `pi-deu-check`), each `SKILL.md` + `references/` templates.
+19 dirs (`agree-the-goal` … `write-the-requirements`): 9 chain steps + `check-security`/`check-design` gates + ops extras (`fix-a-bug`, `open-a-pull-request`, `init-deep`, `pi-deu-check`) + 5 domain advisories (`brand`, `revenue`, `legal`, `finance`, `people`), each `SKILL.md` (+ `references/` where noted).
 
 ## GUARDRAILS (THIS DIR)
 

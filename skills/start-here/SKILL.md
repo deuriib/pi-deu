@@ -85,6 +85,22 @@ suggestions. Load the step's skill through the skill tool before you act.
    | a branch, a pull request, ready for review | `frame-ship:open-a-pull-request` |
    | two areas in parallel, at most | `frame-ship:build` + its `references/worktree-annex.md` |
 
+   Lateral advisory skills — never steps, never `NEXT`. Load them **after**
+   the step skill (max 1–2), cite by path + section, and tag the domain in
+   the 4-line note so `review` opens the matching reviewer:
+
+   | The task | Load (advisory) | `DOMAINS` tag |
+   | --- | --- | --- |
+   | pricing, packaging, funnel, deal, forecast, RevOps | `frame-ship:revenue` | `[Revenue]` |
+   | campaign, content, claim, audience, channel, taxonomy | `frame-ship:brand` | `[Brand]` |
+   | contract, compliance, privacy (Ley 172-13), labor, IP, litigation | `frame-ship:legal` | `[Legal]` |
+   | close, tax (DGII), payroll (TSS), treasury, budget, audit | `frame-ship:finance` | `[Finance]` |
+   | hiring, rules/RBAC, performance, friction, rollout | `frame-ship:people` | `[People]` |
+
+   Brand ↔ revenue split: brand owns taxonomy (Type A = brand-side); Type B
+   (traffic-to-revenue) needs revenue review; Type C (joint) needs both.
+   Taxonomy changes arrive via the user only — never sideways.
+
 **3. Hold the hard rules on every step.** The full list is in
 `references/bootstrap-checklist.md`. In short: no code before the proposal is
 approved (or before an outside send, filing, or launch, for non-code work); a

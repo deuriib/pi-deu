@@ -3,7 +3,7 @@
 **Owner:** engineering owner (vasquez); owning domain leads for non-engineering contracts (linked, engineering consolidates index only)
 **Version:** v1
 **Last Updated:** 2026-09-29
-**Domains-Touched:** Legal, Engineering, Product, Cross-Domain
+**Domains-Touched:** Legal, Engineering, Product, Cross-Domain, agents-migration (SPEC-agents-migration)
 
 ## Overview
 
@@ -49,6 +49,7 @@ User goal → `agree-the-goal` → requirements + this contract → `propose` (P
 - INV-004: Secrets/PII never in code, logs, prompts, commits — vault/env only; names/emails/IDs tokenised at capture.
 - INV-005: This file is the singleton — update-in-place, never `DESIGN-*.md`; API/component shapes live in Components table, no separate contract doc.
 - INV-006: Max 2 parallel lanes, isolated worktrees, sequential fallback keeps same gates (no silent downgrade).
+- INV-007: Frame-ship is the sole dispatch authority; `agents/` content is reference-only and is never rewired into the runtime (`pi.subagents.agents` stays absent; router tables migrate as inert reference only). ADR pending per SPEC-agents-migration REQ-004 (lands at `check-design`).
 
 ## Non-Functional Requirements
 

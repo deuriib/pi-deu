@@ -78,6 +78,7 @@ Convention: persona/principles/responsibilities boilerplate is duplicate everywh
 | internal-auditor.md | partial | Audit-trail procedures (presumed) → finance | LOW |
 | compliance-officer.md | partial | Compliance deltas (markers hit) → legal/finance | MED |
 | privacy-counsel.md | partial | MAP→ASSESS→DRAFT→VERIFY (Ley 172-13) → legal | HIGH |
+| privacy-engineer.md | partial | MAP→MINIMIZE→RETAIN→HANDOFF + PII-checkpoint rule + retention tables → check-security | HIGH (read post-review-catch; was missing from matrix v1) |
 | labor-counsel.md | partial | Código de Trabajo playbook → legal | HIGH |
 | ip-counsel.md | partial | IP playbook (presumed) → legal | LOW |
 | litigation-counsel.md | partial | Dispute playbook (presumed) → legal | LOW |
@@ -108,7 +109,8 @@ Convention: persona/principles/responsibilities boilerplate is duplicate everywh
 
 ## Distribution
 
-- partial: 47 · duplicate: 23 · obsolete: 4 (personal-finance, personal-investor + 2 identity/wiring-only extractions counted inside partials)
+- partial: 52 · duplicate: 20 · obsolete: 2 (personal-finance, personal-investor) = 74 rows (9 routers + 14 reviewers + 8 implementers + 43 specialists).
+- v1 miscount (47/23/4 + missing privacy-engineer row) caught by review correctness check and fixed before verdict — see review wave.
 - Counts sum to 74 rows above (9 + 14 + 8 + 43).
 
 ## New-skill rollup (threshold ≥3 cohesive homeless + deu confirmation)

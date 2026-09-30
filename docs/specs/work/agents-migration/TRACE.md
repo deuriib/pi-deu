@@ -32,6 +32,7 @@
 | frontend.md | Working agreement + Capabilities | `skills/build/references/working-agreement.md` |
 | vasquez.md | Classify table (dispatch column dropped), minimal/full wave, flaky N-2, CI-vs-infra, DoD | `skills/propose/references/classify-reference.md`, `skills/verify/references/definition-of-done.md` (+ wave rules live in review skill practices) |
 | barrera.md, grc-analyst.md, iam-specialist.md, incident-responder.md | Security gate, control/register rule, IAM/IR pointers | `skills/check-security/references/security-gate.md` |
+| privacy-engineer.md | PII checkpoint rule + retention tables + MAP→MINIMIZE→RETAIN→HANDOFF | `skills/check-security/references/security-gate.md` (appended post-review-catch) |
 | product-writer.md, discovery-researcher.md, growth-analyst.md | PRD rollout notes + hard rules, disconfirmation rule, Type-A taxonomy | `skills/write-the-requirements/references/product-deltas.md` |
 | people-reviewer.md, revenue-reviewer.md, brand-reviewer.md | — (gate pattern only; process lives in chain review) | nowhere (duplicate, see below) |
 

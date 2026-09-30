@@ -19,5 +19,7 @@
 
 ## Coverage Summary
 
+- Review-found fix (pre-verdict): AUDIT v1 covered 73 rows + wrong distribution; correctness check caught it, privacy-engineer row added, counts corrected to 52/20/2 = 74. Fix committed before any verdict.
+
 - Evidence coverage: 2/12 recorded (E-001, E-004); 1 blocked on deu (E-002); 9 gated behind it
 - Acceptance criteria covered: 0/6 (none claimed before spot-check)
